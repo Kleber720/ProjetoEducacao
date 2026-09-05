@@ -1,9 +1,11 @@
-import  {User}  from "../models/entities/userEntities";
+import  {UserEntities}  from "../models/entities/UserEntities";
 
 export interface UserRepository{
-    createUser(user: User): Promise<any>;
-    updateUser(user: User): Promise<any>;
-    searchUserById(id: User): Promise<any>;
-    searchUserByEmail(email: User): Promise<any>;
-    deleteUser(id: User): Promise<any>;
+
+    createUser(user: UserEntities): Promise<any>;
+    updateUser(user: UserEntities): Promise<any>;
+    searchUserById(id: UserEntities): Promise<any>;
+    searchUserByEmail(email: UserEntities): Promise<any>;
+    deleteUser(id: UserEntities): Promise<any>;
+    
 }
