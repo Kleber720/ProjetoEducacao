@@ -1,6 +1,6 @@
 import { IdUser } from "../valueObject/idUser";
 
-export class User{
+export class UserEntities{
    id: IdUser;
    private name: String;
    private age: Number;
@@ -67,6 +67,4 @@ export class User{
     }
 
 }
-const u1= new User(new IdUser(1),"kleb",11,"kleb@","12345678@","123456789");
-console.log(u1.getPassword());
-console.log(u1.id)
+

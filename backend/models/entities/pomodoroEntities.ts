@@ -1,7 +1,7 @@
 import { IdUser } from "../valueObject/idUser";
 
 
-export class Pomodoro{
+export class PomodoroEntities{
     private id: Number;
     private idUser: IdUser;
     private schoolSubject: String;
@@ -14,6 +14,7 @@ export class Pomodoro{
         this.idUser=idUser;
         this.schoolSubject = schoolSubject;
         this.time = time;
+        this.restTime=restTime
     }
 
     getId(): Number {
@@ -52,6 +53,6 @@ export class Pomodoro{
 
 }
 
-const pomodoro = new Pomodoro(1,new IdUser(1),"Matematica",25,5);
+
 
 

@@ -1,5 +1,6 @@
 export class IdUser{
     private idUser: Number;
+    
 
     constructor(idUser: Number){
         this.idUser = idUser;
