@@ -1,15 +1,15 @@
 import { IdUser } from "../valueObject/idUser";
 export class CornellEntities{
-    private id: number;
+    private id: Number;
     private idUser: IdUser;
-    private schoolSubject: string;
+    private schoolSubject: String;
 
-    constructor(id: number, idUser: IdUser, schoolSubject: string){
+    constructor(id: Number, idUser: IdUser, schoolSubject: String){
         this.id = id;
         this.idUser = idUser;
         this.schoolSubject = schoolSubject;
     }
-    getId(): number {
+    getId(): Number {
         return this.id;
     }
 
@@ -17,11 +17,11 @@ export class CornellEntities{
         return this.idUser;
     }
 
-    getSchoolSubject(): string {
+    getSchoolSubject(): String {
         return this.schoolSubject;
     }
 
-    setSchoolSubject(schoolSubject: string): void {
+    setSchoolSubject(schoolSubject: String): void {
         this.schoolSubject = schoolSubject;
     }
 

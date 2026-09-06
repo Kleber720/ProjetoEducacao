@@ -2,19 +2,19 @@ import { IdUser } from "../valueObject/idUser";
 
 export class MapaMentalEntities {
 
-    private id: number;
+    private id: Number;
     private idUser: IdUser;
-    private schoolSubject: string;
-    private ramification?: string;
+    private schoolSubject: String;
+    private ramification?: String;
 
-    constructor(id: number, idUser: IdUser, schoolSubject: string, ramification?: string) {
+    constructor(id: Number, idUser: IdUser, schoolSubject: String, ramification?: String) {
         this.id = id;
         this.idUser = idUser;
         this.schoolSubject = schoolSubject;
         this.ramification = ramification;
     }
 
-    getId(): number {
+    getId(): Number {
         return this.id;
     }
 
@@ -22,19 +22,19 @@ export class MapaMentalEntities {
         return this.idUser;
     }
 
-    getSchoolSubject(): string {
+    getSchoolSubject():String {
         return this.schoolSubject;
     }
     
-    setSchoolSubject(schoolSubject: string): void {
+    setSchoolSubject(schoolSubject: String): void {
         this.schoolSubject = schoolSubject;
     }
 
-    setRamification(ramification: string | undefined): void {
+    setRamification(ramification: String | undefined): void {
         this.ramification = ramification;
     }
 
-    getRamification(): string | undefined {
+    getRamification(): String | undefined {
         return this.ramification;
     }
 

@@ -1,12 +1,12 @@
 import { IdUser } from "../valueObject/idUser";
 export class EstudoIntercaladoEntities{
-    private id: number;
+    private id: Number;
     private idUser: IdUser;
-    private schoolSubject: string;
-    private schoolSubject2: string;
-    private timer: number;
+    private schoolSubject: String;
+    private schoolSubject2:String;
+    private timer: Number;
 
-    constructor(id: number, idUser: IdUser, schoolSubject: string, schoolSubject2: string, timer:number){
+    constructor(id: Number, idUser: IdUser, schoolSubject: String, schoolSubject2: String, timer:Number){
         this.id = id;
         this.idUser = idUser;
         this.schoolSubject = schoolSubject;
@@ -16,7 +16,7 @@ export class EstudoIntercaladoEntities{
 
        
     }
-    getId(): number {
+    getId(): Number {
         return this.id;
     }
 
@@ -24,26 +24,26 @@ export class EstudoIntercaladoEntities{
         return this.idUser;
     }
 
-     getSchoolSubject(): string {
+     getSchoolSubject(): String {
             return this.schoolSubject;
         }
-        setSchoolSubject(schoolSubject: string): void {
+        setSchoolSubject(schoolSubject: String): void {
             this.schoolSubject = schoolSubject;
         }
 
-        getSchoolSubject2(): string {
+        getSchoolSubject2(): String{
             return this.schoolSubject2;
         }
         
-        setSchoolSubject2(schoolSubject2: string): void {
+        setSchoolSubject2(schoolSubject2: String): void {
             this.schoolSubject2 = schoolSubject2;
         }
 
-        getTimer(): number {
+        getTimer(): Number {
             return this.timer;
         }
 
-        setTimer(timer: number): void {
+        setTimer(timer: Number): void {
             this.timer = timer;
         }
 }

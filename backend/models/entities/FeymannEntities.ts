@@ -1,17 +1,17 @@
 import { IdUser } from "../valueObject/idUser";
 export class FeymannEntities{
-    private id: number;
+    private id: Number;
     private idUser: IdUser;
-    private schoolSubject: string;
-    private summary?: string;
+    private schoolSubject: String;
+    private summary?: String;
 
-    constructor(id: number, idUser: IdUser, schoolSubject: string, summary: string){
+    constructor(id: Number, idUser: IdUser, schoolSubject: String, summary: String){
         this.id = id;
         this.idUser = idUser;
         this.schoolSubject = schoolSubject;
         this.summary = summary;
     }
-    getId(): number {
+    getId(): Number {
         return this.id;
     }
 
@@ -19,19 +19,19 @@ export class FeymannEntities{
         return this.idUser;
     }
 
-    getSchoolSubject(): string {
+    getSchoolSubject(): String {
         return this.schoolSubject;
     }
 
-    setSchoolSubject(schoolSubject: string): void {
+    setSchoolSubject(schoolSubject: String): void {
         this.schoolSubject = schoolSubject;
     }
 
-    getSummary(): string | undefined {
+    getSummary(): String | undefined {
         return this.summary;
     }
 
-    setSummary(summary: string | undefined): void {
+    setSummary(summary: String| undefined): void {
         this.summary = summary;
     }
 
