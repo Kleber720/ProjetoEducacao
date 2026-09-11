@@ -3,13 +3,13 @@ export class FeymannEntities{
     private id: Number;
     private idUser: IdUser;
     private schoolSubject: String;
-    private summary?: String;
+    private explanation?: String;
 
-    constructor(id: Number, idUser: IdUser, schoolSubject: String, summary: String){
+    constructor(id: Number, idUser: IdUser, schoolSubject: String, explanation: String){
         this.id = id;
         this.idUser = idUser;
         this.schoolSubject = schoolSubject;
-        this.summary = summary;
+        this.explanation = explanation;
     }
     getId(): Number {
         return this.id;
@@ -28,11 +28,11 @@ export class FeymannEntities{
     }
 
     getSummary(): String | undefined {
-        return this.summary;
+        return this.explanation;
     }
 
-    setSummary(summary: String| undefined): void {
-        this.summary = summary;
+    setSummary(explanation: String| undefined) {
+        this.explanation = explanation;
     }
 
 }

@@ -5,16 +5,16 @@ export class PomodoroEntities{
     private id: Number;
     private idUser: IdUser;
     private schoolSubject: String;
-    private time: Number;
-    private restTime: Number;
+    private studyTime: Number;
+    private timeDescanse: Number;
 
 
-    constructor(id:Number,idUser:IdUser, schoolSubject: String, time: Number, restTime: Number = 5){
+    constructor(id:Number,idUser:IdUser, schoolSubject: String, studyTime: Number, timeDescanse: Number = 5){
         this.id = id;
         this.idUser=idUser;
         this.schoolSubject = schoolSubject;
-        this.time = time;
-        this.restTime=restTime
+        this.studyTime = studyTime;
+        this.timeDescanse=timeDescanse
     }
 
     getId(): Number {
@@ -33,19 +33,19 @@ export class PomodoroEntities{
     }
 
     getTime(): Number {
-        return this.time;
+        return this.studyTime;
     }
 
-    setTime(time: Number): void {
-        this.time = time;
+    setTime(studyTime: Number): void {
+        this.studyTime = studyTime;
     }
 
-    getRestTime(): Number {
-        return this.restTime;
+    getTimeDescanse(): Number {
+        return this.timeDescanse;
     }
 
-    setRestTime(restTime: Number): void {
-        this.restTime = restTime;
+    setTimeDescanse(timeDescanse: Number): void {
+        this.timeDescanse = timeDescanse;
     }
 
     

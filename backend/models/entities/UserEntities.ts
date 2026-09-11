@@ -2,15 +2,15 @@ import { IdUser } from "../valueObject/idUser";
 
 export class UserEntities{
    id: IdUser;
-   private name: String;
+   private userName: String;
    private age: Number;
    private email: String;
    private password: String;
    private tel: String;
 
-    constructor(idUser:IdUser,name: String, age: Number, email: String, password: String, tel: String){
+    constructor(idUser:IdUser,userName: String, age: Number, email: String, password: String, tel: String){
         this.id = idUser;
-        this.name = name;
+        this.userName = userName;
         this.age = age;
         this.email = email;
         this.password = password;
@@ -25,10 +25,10 @@ export class UserEntities{
     }
 
     getName(): String {
-        return this.name;
+        return this.userName;
     }
     setName(name: String): void {
-        this.name = name;
+        this.userName = name;
     }
 
     getAge(): Number {
