@@ -1,22 +1,23 @@
 import { IdUser } from "../valueObject/idUser";
+import { Age } from "../valueObject/age";
+import { Email } from "../valueObject/email";
+import{ Password } from "../valueObject/password";
+
 
 export class UserEntities{
    id: IdUser;
    private userName: String;
-   private age: Number;
-   private email: String;
-   private password: String;
+   private age: Age;
+   private email: Email;
+   private password: Password;
    private tel: String;
 
-    constructor(idUser:IdUser,userName: String, age: Number, email: String, password: String, tel: String){
+    constructor(idUser:IdUser,userName: String, age: Age, email: Email, password: Password, tel: String){
         this.id = idUser;
         this.userName = userName;
         this.age = age;
         this.email = email;
         this.password = password;
-        if (this.password.length < 8 ) {
-            throw new Error("A senha deve ter pelo menos 8 caracteres e conter pelo menos um caractere especial!");
-        }
         this.tel = tel;
     }
 
@@ -31,30 +32,27 @@ export class UserEntities{
         this.userName = name;
     }
 
-    getAge(): Number {
+    getAge(): Age {
         return this.age;
     }
 
-    setAge(age: Number): void {
+    setAge(age: Age): void {
         this.age = age;
     }
 
-    getEmail(): String {
+    getEmail(): Email {
         return this.email;
     }
 
-    setEmail(email: String): void {
+    setEmail(email: Email): void {
         this.email = email;
     }
 
-    getPassword(): String {
+    getPassword(): Password {
         return this.password;
     }
 
-    setPassword(password: String): void {
-        if (password.length < 8 ) {
-            throw new Error("A senha deve ter pelo menos 8 caracteres e conter pelo menos um caractere especial!");
-        }
+   setPassword(password: Password): void {
         this.password = password;
     }
 

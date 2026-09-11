@@ -1,6 +1,6 @@
 import { IdUser } from "../valueObject/idUser";
 
-export class MapaMentalEntities {
+export class MindMapEntities {
 
     private id: Number;
     private idUser: IdUser;

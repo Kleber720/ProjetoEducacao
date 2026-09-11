@@ -1,10 +1,10 @@
-import {MapaMentalEntities} from "../models/entities/MapaMentalEntities"
+import {MindMapEntities} from "../models/entities/MindMap"
 
 
 export interface MapaMentalRepository{
         
-    createMapaMental(Promise: MapaMentalEntities): Promise <any>;
-    updateMapaMental(Promise: MapaMentalEntities): Promise <any>;
+    createMapaMental(Promise: MindMapEntities): Promise <any>;
+    updateMapaMental(Promise: MindMapEntities): Promise <any>;
     searchMapaMentalById( id: Number): Promise <any>;
     searchMapaMentalByUser(idUser: Number): Promise <any>;
     deleteMapaMentalByid(id:Number): Promise <any>;

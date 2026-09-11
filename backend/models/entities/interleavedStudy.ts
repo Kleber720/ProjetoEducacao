@@ -1,5 +1,5 @@
 import { IdUser } from "../valueObject/idUser";
-export class EstudoIntercaladoEntities{
+export class InterleavedStudy{
     private id: Number;
     private idUser: IdUser;
     private schoolSubject: String;

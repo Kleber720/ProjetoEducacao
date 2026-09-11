@@ -3,13 +3,13 @@ CREATE DATABASE IF NOT EXISTS Edukation ;
 use Edukation;
 
 CREATE TABLE IF NOT EXISTS users(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userName VARCHAR(255)NOT NULL,
-    age INT NOT NULL,
+    dateBirdth DATE NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    password varbinary(255) NOT NULL,
     tel VARCHAR(255) NOT NULL UNIQUE
-    
+
 )
 
 CREATE TABLE IF NOT EXISTS pomodoro(
@@ -19,6 +19,28 @@ CREATE TABLE IF NOT EXISTS pomodoro(
     studyTime INT NOT NULL,
     timeDescanse INT NOT NULL
 )
+
+/* controlar exercicios */
+CREATE TABLE IF NOT EXISTS flashcards(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_method INT FOREING KEY REFERENCES users(id),
+    schoolSubject VARCHAR(255) NOT NULL,
+    question VARCHAR(255) NOT NULL,
+    answer VARCHAR(255) NOT NULL
+)
+
+
+ CREATE TABLE category(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    categoryName VARCHAR(255) NOT NULL
+ );
+
+CREATE TABLE activity(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idCategory INT FOREING KEY REFERENCES category(id),
+    schoolSubject VARCHAR(255) NOT NULL,
+    content text ,
+    
 
 CREATE TABLE IF NOT EXISTS mindMap(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
