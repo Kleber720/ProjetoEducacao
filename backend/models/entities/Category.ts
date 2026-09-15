@@ -3,12 +3,12 @@ import {User} from "./User"
 export class Category{
     private id:number;
     private name:string;
-    private User:User;
+    private user:User;
 
-    constructor(id:number,name:string,User:User){
+    constructor(id:number,name:string,user:User){
         this.id=id
         this.name=name
-        this.User=User
+        this.user=user
     }
 
     getId():number{
@@ -24,6 +24,6 @@ export class Category{
     }
 
     getUser():User{
-        return this.User
+        return this.user
     }
 }

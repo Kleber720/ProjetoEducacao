@@ -5,8 +5,8 @@ export class Timeline{
     private name:string;
     private description?:string;
     private Module:Module;
-    startDate:Date;
-    endDate:Date;
+    private startDate:Date;
+    private endDate:Date;
 
     constructor(id:number,name:string,Module:Module,startDate:Date,endDate:Date,description?:string){
         this.id=id

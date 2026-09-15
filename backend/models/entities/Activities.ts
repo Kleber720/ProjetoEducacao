@@ -4,14 +4,14 @@ export class Activities{
     private id:number;
     private description:string;
     private exercises:string;
-    private Theme:Theme;
+    private theme:Theme;
     private status:boolean;
 
-    constructor(id:number,description:string,exercises:string,Theme:Theme,status:boolean){
+    constructor(id:number,description:string,exercises:string,theme:Theme,status:boolean){
         this.id=id
         this.description=description
         this.exercises=exercises
-        this.Theme=Theme
+        this.theme=theme
         this.status=status
     }
 
@@ -36,7 +36,7 @@ export class Activities{
     }
 
     getTheme():Theme{
-        return this.Theme
+        return this.theme
     }
 
     getStatus():boolean{

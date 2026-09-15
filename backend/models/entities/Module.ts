@@ -4,12 +4,12 @@ export class Module{
     private id:number;
     private chooseModule:string;
     private description?:string;
-    private Activities:Activities;
+    private activities:Activities;
 
-    constructor(id:number,chooseModule:string,Activities:Activities,description?:string){
+    constructor(id:number,chooseModule:string,activities:Activities,description?:string){
         this.id=id
         this.chooseModule=chooseModule
-        this.Activities=Activities
+        this.activities=activities
         this.description=description
     }
 
@@ -26,7 +26,7 @@ export class Module{
     }
 
     getActivities():Activities{
-        return this.Activities
+        return this.activities
     }
 
     chooseModulePomodoro():void{

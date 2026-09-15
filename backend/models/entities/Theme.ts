@@ -1,14 +1,14 @@
-import { User } from "./User";
+import {Category} from "./Category";
 export class Theme{
     private id:number;
     private name:string;
     private description?:string;
-    private User:User;
+    private category:Category;
 
-    constructor(id:number,name:string,User:User,description?:string){
+    constructor(id:number,name:string,category:Category,description?:string){
         this.id=id
         this.name=name
-        this.User=User
+        this.category=category
         this.description=description
     }
 
@@ -32,7 +32,7 @@ export class Theme{
         this.description=description
     }
 
-    getUser():User{
-        return this.User
+    getCategory():Category{
+        return this.category
     }
 }
