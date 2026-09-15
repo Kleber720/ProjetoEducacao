@@ -79,6 +79,8 @@ SELECT * FROM Theme;
 SELECT * FROM activities;
 
 DELETE FROM User WHERE id=1;
-ALTER TABLE category AUTO_INCREMENT=1
+ALTER TABLE module CHANGE COLUMN name chooseModule VARCHAR(255)NOT NULL;
+
+
 
 DROP DATABASE edukation;
