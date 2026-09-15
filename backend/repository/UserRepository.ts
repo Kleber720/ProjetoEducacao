@@ -2,7 +2,8 @@ import { User } from "../models/entities/User";
 
 export interface UserRepository {
     createUser(user:User): Promise<User>;
-    getUserById(id:Number): Promise<User | null>;
+    getUserByName(name:string): Promise<any>;
+    getUserByEmail(email:string): Promise<any>;
     deleteUserById(id:number): Promise<void>;
-    updateUserById(id:number, user:User): Promise<User | null>;
+    updateUserById(id:number, user:User): Promise<boolean>;
 }
