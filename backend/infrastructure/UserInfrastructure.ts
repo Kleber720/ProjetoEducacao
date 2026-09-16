@@ -24,6 +24,25 @@ export class UserInfrastructure implements UserRepository{
         }
     }
 
+    async getUserById(id: number): Promise<any> {
+            
+            const connection= await pool.getConnection();
+            try{
+                const [user] = await connection.query<RowDataPacket[]>(
+                    "SELECT * FROM user WHERE id = ?",
+                    [id]
+                )
+                return user
+    
+            }catch(error){
+                await connection.rollback();
+                throw error;
+    
+            }finally{
+                connection.release();
+            }
+    }
+
     async getUserByName(name:string): Promise <any> {
         const connection=  await pool.getConnection();
         try{

@@ -23,6 +23,26 @@ export class CategoryInfrastructure implements CategoryRepository{
         }
     }
 
+    async getCategoryById(id: number): Promise<any> {
+            
+            const connection= await pool.getConnection();
+            try{
+                const [category]= await connection.query<RowDataPacket[]>( 
+                    "SELECT * FROM category WHERE id = ?",
+                    [id]
+                )
+                return category
+    
+            }catch(error){
+                connection.rollback
+                throw error
+    
+            }finally{
+                connection.release
+            }
+        }
+        
+
     async getCategoryByName(name: string): Promise<any> {
         const connection= await pool.getConnection();
         try{

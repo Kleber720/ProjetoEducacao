@@ -23,4 +23,96 @@ export class ThemeInfrastructure implements ThemeRepository{
         }
     }
 
+    async getThemeById(id: number): Promise<any> {
+            
+            const connection = await pool.getConnection();
+            try{
+                const [response] = await connection.query<RowDataPacket[]>(
+                    "SELECT * FROM themes WHERE id = ?",
+                    [id]
+                )
+                return response
+    
+            }catch(error){
+                connection.rollback();
+                throw error;
+    
+            }finally{
+                connection.release();
+            }
+        }
+
+    async getThemeByIdCategory(category: number): Promise<Theme | null> {
+        const connection = await pool.getConnection();
+        try{
+            const [response] = await connection.query<RowDataPacket[]>(
+                "SELECT * FROM themes WHERE category = ?",
+                [category]
+            )
+            return response
+
+        }catch(error){
+            connection.rollback();
+            throw error;
+
+        }finally{
+            connection.release();
+        }
+    }
+
+    async getThemeByName(name: string): Promise<Theme | null> {
+        const connection = await pool.getConnection();
+        try{
+            const [response] = await connection.query<RowDataPacket[]>(
+                "SELECT * FROM themes WHERE name LIKE ? ORDER BY name ASC",
+                [`%${name}%`]
+            )
+            return response
+
+        }catch(error){
+            connection.rollback();
+            throw error;
+
+        }finally{
+            connection.release();
+        }
+    }
+
+    async deleteThemeById(id: number): Promise<void> {
+        const connection = await pool.getConnection();
+        try{
+            await connection.query(
+                "DELETE FROM themes WHERE id = ?",
+                [id]
+            )
+
+        }catch(error){
+            connection.rollback();
+            throw error;
+
+        }finally{
+            connection.release();
+        }
+    }
+    
+    async updateThemeById(id: number, theme: Theme): Promise<Theme | null> {
+        const connection = await pool.getConnection();
+        try{
+            const result = await connection.query<ResultSetHeader>(
+                "UPDATE themes SET name = ?, description = ?, WHERE id = ?",
+                [theme.getName, theme.setDescription, id]
+            )
+            return result
+
+        }catch(error){
+            connection.rollback();
+            throw error;
+
+        }finally{
+            connection.release();
+        }
+
+    }
+    
+
 }
