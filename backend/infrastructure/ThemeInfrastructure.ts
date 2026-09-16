@@ -42,7 +42,7 @@ export class ThemeInfrastructure implements ThemeRepository{
             }
         }
 
-    async getThemeByIdCategory(category: number): Promise<Theme | null> {
+    async getThemeByIdCategory(category: number): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(
@@ -60,7 +60,7 @@ export class ThemeInfrastructure implements ThemeRepository{
         }
     }
 
-    async getThemeByName(name: string): Promise<Theme | null> {
+    async getThemeByName(name: string): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(
@@ -95,11 +95,11 @@ export class ThemeInfrastructure implements ThemeRepository{
         }
     }
     
-    async updateThemeById(id: number, theme: Theme): Promise<Theme | null> {
+    async updateThemeById(id: number, theme: Theme): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const result = await connection.query<ResultSetHeader>(
-                "UPDATE themes SET name = ?, description = ?, WHERE id = ?",
+                "UPDATE themes SET name = ?, description = ? WHERE id = ?",
                 [theme.getName, theme.setDescription, id]
             )
             return result

@@ -1,9 +1,9 @@
 import {Module} from "../models/entities/Module"
 
 export interface ModuleRepository{
-    createModule(module:Module): Promise <Module>
-    getModuleById(id:number): Promise <Module | null>
-    getModuleByIdActivities(activities:number): Promise <Module | null>
+    createModule(module:Module): Promise <any>
+    getModuleById(id:number): Promise <any>
+    getModuleByIdActivities(activities:number): Promise <any>
     deleteModuleById(id:number): Promise <void>
-    updateModuleById(id:number, module: Module): Promise <Module | null>
+    updateModuleById(id:number, module: Module): Promise <any>
 }

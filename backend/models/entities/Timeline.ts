@@ -4,14 +4,14 @@ export class Timeline{
     private id:number;
     private name:string;
     private description?:string;
-    private Module:Module;
+    private module:Module;
     private startDate:Date;
     private endDate:Date;
 
-    constructor(id:number,name:string,Module:Module,startDate:Date,endDate:Date,description?:string){
+    constructor(id:number,name:string,module:Module,startDate:Date,endDate:Date,description?:string){
         this.id=id
         this.name=name
-        this.Module=Module
+        this.module=module
         this.startDate=startDate
         this.endDate=endDate
         this.description=description
@@ -38,7 +38,7 @@ export class Timeline{
     }
 
     getModule():Module{
-        return this.Module
+        return this.module
     }
 
     getStartDate():Date{
