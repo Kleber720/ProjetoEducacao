@@ -23,7 +23,7 @@ export class CategoryInfrastructure implements CategoryRepository{
         }
     }
 
-    async getCategoryById(id: number): Promise<any> {
+    async searchCategoryById(id: number): Promise<any> {
             
             const connection= await pool.getConnection();
             try{
@@ -43,7 +43,7 @@ export class CategoryInfrastructure implements CategoryRepository{
         }
         
 
-    async getCategoryByName(name: string): Promise<any> {
+    async searchCategoryByName(name: string): Promise<any> {
         const connection= await pool.getConnection();
         try{
             const [category]= await connection.query<RowDataPacket[]>(
@@ -61,7 +61,7 @@ export class CategoryInfrastructure implements CategoryRepository{
         }
     }
 
-    async getCategoryByIdUser(user: number): Promise<any> {
+    async searchCategoryByIdUser(user: number): Promise<any> {
         const connection= await pool.getConnection();
         try{
             const [category]= await connection.query<RowDataPacket[]>(

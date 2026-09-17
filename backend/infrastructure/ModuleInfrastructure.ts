@@ -23,7 +23,7 @@ export class ModuleInfrastructure implements ModuleRepository{
         }
     }
     
-    async getModuleById(id: number): Promise<any> {
+    async searchModuleById(id: number): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(
@@ -41,7 +41,7 @@ export class ModuleInfrastructure implements ModuleRepository{
         }
     }
 
-    async getModuleByIdActivities(activities: number): Promise<any> {
+    async searchModuleByIdActivities(activities: number): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(

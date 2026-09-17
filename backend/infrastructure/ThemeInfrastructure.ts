@@ -23,7 +23,7 @@ export class ThemeInfrastructure implements ThemeRepository{
         }
     }
 
-    async getThemeById(id: number): Promise<any> {
+    async searchThemeById(id: number): Promise<any> {
             
             const connection = await pool.getConnection();
             try{
@@ -42,7 +42,7 @@ export class ThemeInfrastructure implements ThemeRepository{
             }
         }
 
-    async getThemeByIdCategory(category: number): Promise<any> {
+    async searchThemeByIdCategory(category: number): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(
@@ -60,7 +60,7 @@ export class ThemeInfrastructure implements ThemeRepository{
         }
     }
 
-    async getThemeByName(name: string): Promise<any> {
+    async searchThemeByName(name: string): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(

@@ -23,7 +23,7 @@ export class TimelineInfrastructure implements TimelineRepository{
         }
     }
 
-    async getTimelineById(id: number): Promise<any> {
+    async searchTimelineById(id: number): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(
@@ -41,7 +41,7 @@ export class TimelineInfrastructure implements TimelineRepository{
         }
     }
 
-    async getTimelineByIdModule(module: number): Promise<any> {
+    async searchTimelineByIdModule(module: number): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(

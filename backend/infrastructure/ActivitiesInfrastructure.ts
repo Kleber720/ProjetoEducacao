@@ -23,7 +23,7 @@ export class ActivitiesInfrastructure implements ActivitiesRepository{
         }
     }
 
-    async getActivitiesById(id:number): Promise<any>{
+    async searchActivitiesById(id:number): Promise<any>{
         const connection = await pool.getConnection();
         try{
             const[response] = await connection.query<RowDataPacket[]>(
@@ -42,7 +42,7 @@ export class ActivitiesInfrastructure implements ActivitiesRepository{
         }
     }
 
-    async getActivitiesByIdTheme(theme: number): Promise<any> {
+    async searchActivitiesByIdTheme(theme: number): Promise<any> {
         const connection = await pool.getConnection();
         try{
             const [response] = await connection.query<RowDataPacket[]>(

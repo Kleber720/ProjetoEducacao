@@ -24,7 +24,7 @@ export class UserInfrastructure implements UserRepository{
         }
     }
 
-    async getUserById(id: number): Promise<any> {
+    async searchUserById(id: number): Promise<any> {
             
             const connection= await pool.getConnection();
             try{
@@ -43,7 +43,7 @@ export class UserInfrastructure implements UserRepository{
             }
     }
 
-    async getUserByName(name:string): Promise <any> {
+    async searchUserByName(name:string): Promise <any> {
         const connection=  await pool.getConnection();
         try{
             const [user] = await connection.query<RowDataPacket[]>(
@@ -61,7 +61,7 @@ export class UserInfrastructure implements UserRepository{
         }
     }
 
-    async getUserByEmail(email:string): Promise <any> {
+    async searchUserByEmail(email:string): Promise <any> {
         const connection=  await pool.getConnection();
         try{
             const [user]= await connection.query<RowDataPacket[]>(
