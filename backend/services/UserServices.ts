@@ -1,5 +1,6 @@
 import { User } from "../models/entities/User";
-import {UserDTO} from "../models/dto/user/UserDTO"
+import { createUserDTO } from "../models/dto/user/createUserDTO";
+import { searchUserByEmailDTO } from "../models/dto/user/searchUserByEmailDTO";
 import { UserInfrastructure } from "../infrastructure/UserInfrastructure"
 
 class UserServices {
