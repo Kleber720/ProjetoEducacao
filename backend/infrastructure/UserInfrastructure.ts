@@ -3,7 +3,8 @@ import pool from "../config/db";
 import {RowDataPacket, ResultSetHeader} from "mysql2/promise";
 import {UserRepository} from "../repository/UserRepository"
 
-export class UserInfrastructure implements UserRepository{
+
+class UserInfrastructure implements UserRepository{
 
    async createUser(user: User): Promise<any> {
         const connection= await pool.getConnection();
@@ -114,3 +115,6 @@ export class UserInfrastructure implements UserRepository{
         }
     }
 }
+const userInfrastructure= new UserInfrastructure();
+
+export default userInfrastructure;

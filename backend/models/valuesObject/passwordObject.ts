@@ -13,3 +13,5 @@ export class Password{
         }
     }
 }
+
+export default Password

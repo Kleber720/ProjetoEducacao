@@ -2,21 +2,21 @@ import { Password } from "../valuesObject/passwordObject";
 import { Email } from "../valuesObject/email";
 
 export class User{
-   private id: number;
+   private id?: number;
    private name: string;
    private password: Password;
    private email:Email;
    private phone:string;
 
-    constructor(id:number,name:string,password:Password,email:Email,phone:string){
-        this.id=id
-        this.name=name
-        this.password=password
-        this.email=email
+    constructor(name:string,password:string,email:string,phone:string,id?:number){
+        this.name=this.processName(name)
+        this.password=new Password(password)
+        this.email=new Email(email)
         this.phone=phone
+        this.id=id
     }
 
-    getId():number{
+    getId():number | undefined{
         return this.id
     }
 
@@ -52,5 +52,15 @@ export class User{
         this.phone=phone
     }
 
+    processName(name:string){
+       name.toUpperCase()
+
+       return name;
+    }
+
 
 }
+
+const u1 = new User('kleber','111111111111111111',"kleb@","11111111")
+
+u1.getName
