@@ -1,7 +1,8 @@
 import { User } from "../models/entities/User";
 import { createUserDTO } from "../models/dto/user/createUserDTO";
 import { responseSearchUserByEmailDTO } from "../models/dto/user/responseSearchUserByEmailDTO";
-import {responseSearchUserByIdDTO} from "../models/dto/user/responseSearchUserByIdDTO"
+import {responseSearchUserByIdDTO} from "../models/dto/user/responseSearchUserByIdDTO";
+import { updateUserDTO } from "../models/dto/user/updateUserDTO";
 import userInfrastructure from "../infrastructure/UserInfrastructure"
 
 class UserServices {
@@ -63,8 +64,42 @@ class UserServices {
         }
     }
 
+    async updateUserById(id: number, userDTO: updateUserDTO): Promise<updateUserDTO> {
+        try{
+            const userExistent= await userInfrastructure.searchUserById(id);
+            if(!userExistent){
+                throw new Error("User not found");
+            }
+
+            const userUpdated= new User(
+            userDTO.name || userExistent.name,
+            userDTO.password || userExistent.password,
+            userDTO.email || userExistent.email,
+            userDTO.phone || userExistent.phone
+            );
+
+            await userInfrastructure.updateUserById(id, userUpdated);
+
+            const userResponse: updateUserDTO= {
+                id: id,
+                name: String(userUpdated.getName()),
+                password: String(userUpdated.getPassword()),
+                email: String(userUpdated.getEmail()),
+                phone: String(userUpdated.getPhone())
+            } 
+
+            return userResponse;
+
+        }catch(error){
+            throw new Error(`Error when updating a user: ${error}`)
+        }
+
+        
+        
+    }
+
 
 }
 
-const userServices= new UserServices();
+const userServices= new UserServices(); 
 export default userServices;
