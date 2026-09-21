@@ -1,5 +1,6 @@
-
-export interface UserDTO{
+import { User } from "../../entities/User";
+export interface createCategoryDTO{
+    id?: number,
     name:string,
-    User:number
+    user:number 
 }

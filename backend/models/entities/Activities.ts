@@ -1,13 +1,13 @@
 import { Theme } from "./Theme";
 
 export class Activities{
-    private id:number;
+    private id?:number;
     private description:string;
     private exercises:string;
     private theme:Theme;
     private status:boolean;
 
-    constructor(id:number,description:string,exercises:string,theme:Theme,status:boolean){
+    constructor(description:string,exercises:string,theme:Theme,status:boolean,id?:number){
         this.id=id
         this.description=description
         this.exercises=exercises
@@ -15,7 +15,7 @@ export class Activities{
         this.status=status
     }
 
-    getId():number{
+    getId():number | undefined{
         return this.id
     }
 

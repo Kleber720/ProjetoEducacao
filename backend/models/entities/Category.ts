@@ -1,17 +1,17 @@
 import {User} from "./User"
 
 export class Category{
-    private id:number;
+    private id?:number;
     private name:string;
     private user:User;
 
-    constructor(id:number,name:string,user:User){
+    constructor(name:string,user:User,id?:number){
         this.id=id
         this.name=name
         this.user=user
     }
 
-    getId():number{
+    getId():number | undefined{
         return this.id
     }
 

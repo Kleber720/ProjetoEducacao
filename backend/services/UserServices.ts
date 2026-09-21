@@ -3,11 +3,10 @@ import { createUserDTO } from "../models/dto/user/createUserDTO";
 import { responseSearchUserByEmailDTO } from "../models/dto/user/responseSearchUserByEmailDTO";
 import {responseSearchUserByIdDTO} from "../models/dto/user/responseSearchUserByIdDTO";
 import { updateUserDTO } from "../models/dto/user/updateUserDTO";
+import { responseSearchUserByNameDTO } from "../models/dto/user/responseSearchUserByNameDTO";
 import userInfrastructure from "../infrastructure/UserInfrastructure"
 
 class UserServices {
-
-  
 
     async  createUser(userDTO: createUserDTO): Promise <any>{
         
@@ -22,8 +21,8 @@ class UserServices {
 
     async searchUserById(responseSearchUserByIdDTO: responseSearchUserByIdDTO): Promise<any> {
         try{
-            const user= await userInfrastructure.searchUserById(responseSearchUserByIdDTO.id);
-            return user;
+            const id= await userInfrastructure.searchUserById(responseSearchUserByIdDTO.id);
+            return id;
 
         }catch(error){
             throw new Error(`Error when searching for a user by ID: ${error}`)
@@ -32,18 +31,18 @@ class UserServices {
 
     async searchUserByEmail(responseSearchUserByEmailDTO: responseSearchUserByEmailDTO): Promise<any> {
         try{
-            const user= await userInfrastructure.searchUserByEmail(responseSearchUserByEmailDTO.email);
-            return user;
+            const email= await userInfrastructure.searchUserByEmail(responseSearchUserByEmailDTO.email);
+            return email;
 
         }catch(error){
             throw new Error(`Error when searching for a user by email: ${error}`)
         }
     }
 
-    async searchUserByName(name: string): Promise<any> {
+    async searchUserByName(responseSearchUserByNameDTO: responseSearchUserByNameDTO): Promise<any> {
         try{
-            const user= await userInfrastructure.searchUserByName(name);
-            return user;
+            const name= await userInfrastructure.searchUserByName(responseSearchUserByNameDTO.name);
+            return name;
 
         }catch(error){
             throw new Error(`Error when searching for a user by name: ${error}`)

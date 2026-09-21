@@ -43,24 +43,6 @@ export class CategoryInfrastructure implements CategoryRepository{
         }
         
 
-    async searchCategoryByName(name: string): Promise<any> {
-        const connection= await pool.getConnection();
-        try{
-            const [category]= await connection.query<RowDataPacket[]>(
-                "SELECT * FROM category WHERE name LIKE ? ORDER BY name ASC",
-                [`%${name}%`]
-            )
-            return category
-
-        }catch(error){
-            connection.rollback
-            throw error
-
-        }finally{
-            connection.release
-        }
-    }
-
     async searchCategoryByIdUser(user: number): Promise<any> {
         const connection= await pool.getConnection();
         try{
@@ -115,3 +97,7 @@ export class CategoryInfrastructure implements CategoryRepository{
     }
 
 }
+
+const categoryInfrastructure= new CategoryInfrastructure();
+
+export default categoryInfrastructure;

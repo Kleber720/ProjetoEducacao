@@ -1,14 +1,14 @@
 import {Module} from "./Module";
 
 export class Timeline{
-    private id:number;
+    private id?:number;
     private name:string;
     private description?:string;
     private module:Module;
     private startDate:Date;
     private endDate:Date;
 
-    constructor(id:number,name:string,module:Module,startDate:Date,endDate:Date,description?:string){
+    constructor(name:string,module:Module,startDate:Date,endDate:Date,description?:string,id?:number){
         this.id=id
         this.name=name
         this.module=module
@@ -17,7 +17,7 @@ export class Timeline{
         this.description=description
     }
 
-    getId():number{
+    getId():number | undefined{
         return this.id
     }
 
