@@ -60,24 +60,6 @@ export class ThemeInfrastructure implements ThemeRepository{
         }
     }
 
-    async searchThemeByName(name: string): Promise<any> {
-        const connection = await pool.getConnection();
-        try{
-            const [response] = await connection.query<RowDataPacket[]>(
-                "SELECT * FROM themes WHERE name LIKE ? ORDER BY name ASC",
-                [`%${name}%`]
-            )
-            return response
-
-        }catch(error){
-            connection.rollback();
-            throw error;
-
-        }finally{
-            connection.release();
-        }
-    }
-
     async deleteThemeById(id: number): Promise<void> {
         const connection = await pool.getConnection();
         try{

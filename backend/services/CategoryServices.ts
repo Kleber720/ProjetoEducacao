@@ -110,3 +110,5 @@ class CategoryServices {
         }
     }
 }
+const categoryServices= new CategoryServices();
+export default categoryServices;
