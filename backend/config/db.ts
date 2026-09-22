@@ -6,7 +6,7 @@ dotenv.config();
 const pool:Pool=createPool({
    host: process.env.DB_HOST || '127.0.0.1',
    user: process.env.DB_USER || 'root',
-   password: process.env.DB_PASSWORD || '',
+   password: process.env.DB_PASSWORD || 'kleber',
    database: process.env.DB_NAME || 'edukation',
    waitForConnections: true,
    connectionLimit: 10,  

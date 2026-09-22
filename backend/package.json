@@ -7,10 +7,11 @@
   "type": "commonjs",
   "main": "server.ts",
   "scripts": {
-    "dev":"npx tsx watch User.ts",
+    "dev": "npx tsx watch Server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mysql2": "^3.24.4"
