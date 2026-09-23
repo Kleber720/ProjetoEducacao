@@ -23,6 +23,23 @@ export class CategoryInfrastructure implements CategoryRepository{
         }
     }
 
+    async searchCategory(): Promise<any> {
+        const connection= await pool.getConnection();
+        try{
+            const [category]= await connection.query<RowDataPacket[]>(
+                "SELECT * FROM category"
+            );
+            return category;
+
+        }catch(error){
+            connection.rollback();
+            throw error;
+
+        }finally{
+            connection.release();
+        }
+    }
+
     async searchCategoryById(id: number): Promise<any> {
             
             const connection= await pool.getConnection();
@@ -34,7 +51,7 @@ export class CategoryInfrastructure implements CategoryRepository{
                 return category
     
             }catch(error){
-                connection.rollback
+                connection.rollback()
                 throw error
     
             }finally{

@@ -2,6 +2,7 @@ import { Category } from "../models/entities/Category";
 import { createCategoryDTO } from "../models/dto/category/createCategoryDTO";
 import { responseSearchCategoryByIdDTO} from "../models/dto/category/responseSearchCategoryById"
 import { responseSearchCategoryByIdUserDTO } from "../models/dto/category/responseSearchCategoryByIdUse";
+import { responseSearchCategoryDTO } from "../models/dto/category/responseSearchCategoryDTO"
 import categoryInfrastructure from "../infrastructure/CategoryInfrastructure"
 import userInfrastructure from "../infrastructure/UserInfrastructure"
 import { User } from "../models/entities/User";
@@ -42,6 +43,17 @@ class CategoryServices {
                     
         }   
             
+    }
+    
+    async searchCategory(responseSearchCategoryDTO: responseSearchCategoryDTO): Promise<any>{
+        try{
+            const category= await categoryInfrastructure.searchCategory();
+            return category;
+
+        }catch(error){
+            throw new Error(`Error when searching a category`);
+
+        }
     }
 
     async searchCategoryById(responseSearchCategoryByIdDTO: responseSearchCategoryByIdDTO): Promise<any> {
@@ -110,3 +122,7 @@ class CategoryServices {
         }
     }
 }
+
+const categoryServices= new CategoryServices();
+export default categoryServices
+

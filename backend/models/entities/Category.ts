@@ -2,12 +2,12 @@ import {User} from "./User"
 
 export class Category{
     private id?:number;
-    private name:string;
-    private user:User;
+    private nameCategory:string;
+    private user?:User;
 
-    constructor(name:string,user:User,id?:number){
+    constructor(nameCategory:string,user?:User,id?:number){
         this.id=id
-        this.name=name
+        this.nameCategory=nameCategory
         this.user=user
     }
 
@@ -16,14 +16,14 @@ export class Category{
     }
 
     getName():string{
-        return this.name
+        return this.nameCategory
     }
 
-    setName(name:string):void{
-        this.name=name
+    setName(nameCategory:string):void{
+        this.nameCategory=nameCategory
     }
 
-    getUser():User{
+    getUser():User | undefined{
         return this.user
     }
 }

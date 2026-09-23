@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS Timeline(
 )
 
 INSERT INTO User(name,password,email,phone) VALUES(
-    "KLEB", "1234","KLEB@","11999999"
+    "ana", "1234","anaclara@","1199999"
 );
 
 INSERT INTO Category(idUser,name)VALUES
