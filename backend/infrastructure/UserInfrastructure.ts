@@ -25,6 +25,22 @@ class UserInfrastructure implements UserRepository{
         }
     }
 
+    async searchUser(): Promise<any> {
+        const connection = await pool.getConnection();
+        try{
+            const [user] = await connection.query<RowDataPacket[]>(
+                "SELECT * FROM user"
+            )
+            return user;
+
+        }catch(error){
+            throw error
+
+        }finally{
+            connection.release();
+        }
+    }
+
     async searchUserById(id: number): Promise<any> {
             
             const connection= await pool.getConnection();
@@ -117,4 +133,4 @@ class UserInfrastructure implements UserRepository{
 }
 const userInfrastructure= new UserInfrastructure();
 
-export default userInfrastructure;
+export default userInfrastructure

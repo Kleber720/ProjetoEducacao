@@ -13,6 +13,17 @@ class UserController {
         }
     }
 
+    async searchUser(req: Request, res: Response): Promise<any>{
+        try{
+            const user= await userService.searchUser(res);
+            return res.status(200).json(user);
+
+        }catch(error){
+            return res.status(500).json({ message: `Error searching user: ${error.message}`})
+        }
+
+    }
+
     async searchUserById(req: Request, res: Response): Promise<void> {
         try{
             const user= await userService.searchUserById(req.params.id);

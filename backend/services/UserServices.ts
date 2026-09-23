@@ -5,6 +5,7 @@ import {responseSearchUserByIdDTO} from "../models/dto/user/responseSearchUserBy
 import { updateUserDTO } from "../models/dto/user/updateUserDTO";
 import { responseSearchUserByNameDTO } from "../models/dto/user/responseSearchUserByNameDTO";
 import userInfrastructure from "../infrastructure/UserInfrastructure"
+import { responseSearchUserDTO } from "../models/dto/user/responseSearchUserDTO";
 
 class UserServices {
 
@@ -16,6 +17,15 @@ class UserServices {
 
         }catch(erro){
             throw new Error(`Error when registering a user: ${erro}` )
+        }
+    }
+    async searchUser(responseSearchUserDTO: responseSearchUserDTO): Promise<any>{
+        try{
+            const user= await userInfrastructure.searchUser();
+            return user
+
+        }catch(error){
+            throw new Error(`Error when searching for a user: ${error}`)
         }
     }
 
