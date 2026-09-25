@@ -1,0 +1,23 @@
+
+
+:root{
+  --color-Primary: #004B60;
+  --color-Secondary: #1E7A94;
+  --color-Tertiary: #50ADC7;
+  --color-Quaternary: #96E4FA;
+
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  --font-phrase: "Caveat", cursive;
+}
+
+
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+
