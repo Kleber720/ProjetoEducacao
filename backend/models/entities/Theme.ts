@@ -1,11 +1,13 @@
-import {Category} from "./Category";
+import { CategoryId } from "../valuesObject/CategoryId";
+
 export class Theme{
+
     private id?:number;
     private name:string;
     private description?:string;
-    private category:Category;
+    private category:CategoryId;
 
-    constructor(name:string,category:Category,description?:string,id?:number){
+    constructor(name:string,category:CategoryId,description?:string,id?:number){
         this.id=id
         this.name=name
         this.category=category
@@ -32,7 +34,7 @@ export class Theme{
         this.description=description
     }
 
-    getCategory():Category{
+    getCategory():CategoryId{
         return this.category
     }
 }

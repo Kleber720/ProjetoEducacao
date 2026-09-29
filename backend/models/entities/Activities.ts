@@ -1,10 +1,12 @@
-import { Theme } from "./Theme";
+
 
 export class Activities{
+    
+
     private id?:number;
     private description:string;
     private exercises:string;
-    private theme:Theme;
+    private themeId:Theme;
     private status:boolean;
 
     constructor(description:string,exercises:string,theme:Theme,status:boolean,id?:number){

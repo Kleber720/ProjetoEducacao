@@ -1,11 +1,11 @@
-import {User} from "./User"
+import {UserId} from "../valuesObject/UserId";
 
 export class Category{
     private id?:number;
     private nameCategory:string;
-    private user?:User;
+    private user?:UserId;
 
-    constructor(nameCategory:string,user?:User,id?:number){
+    constructor(nameCategory:string,user?:UserId,id?:number){
         this.id=id
         this.nameCategory=nameCategory
         this.user=user
@@ -23,7 +23,7 @@ export class Category{
         this.nameCategory=nameCategory
     }
 
-    getUser():User | undefined{
+    getUser():UserId | undefined{
         return this.user
     }
 }
