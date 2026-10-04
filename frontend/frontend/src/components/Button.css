@@ -1,0 +1,53 @@
+
+    button{
+        height: 50px;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 30px;
+        background-color: var(--color-brand-primary);
+        color: var(--color-white);
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: var(--font-family-primary);
+        font-size: 1rem;  
+    }
+
+
+
+    button:hover{
+        background-color: var(--color-brand-secondary);
+        animation-duration: 0.5s;
+        animation-name: buttonAnimation;
+        
+    }
+
+    button{
+        animation-fill-mode: forwards;
+        background-color: var(--color-brand-primary);
+        animation-duration: 0.5s;
+        animation-name: buttonAnimationReverse;
+        
+    }
+
+    @keyframes buttonAnimation{
+        from {
+            background-color: var(--color-brand-primary);
+        }
+
+        to {
+            background-color: var(--color-brand-secondary);
+        }
+        
+    }
+
+    @keyframes buttonAnimationReverse{
+        from {
+            background-color: var(--color-brand-secondary);
+        }
+
+        to {
+            background-color: var(--color-brand-primary);
+        }
+        
+    }

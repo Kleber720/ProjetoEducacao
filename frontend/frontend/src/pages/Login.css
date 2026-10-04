@@ -1,0 +1,112 @@
+.container{
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../assets/vegapunk.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    
+}
+
+main{
+    margin-left: 8%;
+    padding: 20px;
+    width:25%;
+    height: 55%;
+    border-radius: 10px;
+    box-shadow: rgba(25, 16, 27, 0.35) 0px 5px 15px;
+    background-color: rgba(0, 0, 0, 0.918);
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    animation-duration: 2s;
+    animation-name: formAnimation;
+}
+
+@keyframes formAnimation{
+    from {
+        opacity: 0;
+        transform: translateY(40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+}
+
+h1{
+    width: 100%;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: rgb(206, 202, 202);
+    font-family: var(--font-family-primary);
+    animation: 2s textAnimation;
+}
+
+p{
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: grey;
+    font-family: var(--font-family-primary);
+    animation: 2s textAnimation;
+}
+
+
+
+@keyframes textAnimation{
+    from {
+        opacity: 0;
+        transform: translateX(40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+}
+
+h3{
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: rgb(255, 255, 255);
+    font-family: var(--font-family-primary);
+    animation: 2s textAnimation;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    font-family: var(--font-family-primary);
+    background-color: rgba(44, 44, 46, 0.664); 
+    color:white;
+    animation: 2s inputAnimation;
+}
+
+@keyframes inputAnimation{
+    from {
+        opacity: 0;
+        transform: translateX(40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+}
+
+
+

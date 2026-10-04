@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+:root{
+  --color-brand-primary:#241761;
+  --color-brand-secondary: #32218A;
+  --color-brand-tertiary: #412BB3;
+  --color-brand-quaternary: #5035DB;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --font-family-primary: 'Instrument Sans', sans-serif;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, sans-serif;
+
+}
