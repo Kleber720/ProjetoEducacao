@@ -16,6 +16,8 @@ function Login(){
                     <Button className="login" text="Login" />
                     <Button className="cadastrarUsuario" text="Cadastrar Usuario" />
 
+                    <p>Ao clicar em "Login", você concorda com nossos termos de serviço e política de privacidade.</p>
+
                 </form>
 
             </main>
