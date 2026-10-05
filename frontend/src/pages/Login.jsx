@@ -6,6 +6,7 @@ import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { CiLogin } from 'react-icons/ci';
 import { FaSignInAlt } from 'react-icons/fa';
+import loginService from '../services/loginService';
 
 function Login(){
 
@@ -13,22 +14,34 @@ function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
         e.preventDefault();
-        
-        if(e.currentTarget.innerText === "Cadastrar Usuario"){
-            navigate('/cadastrar');
-        }else{
-            console.log('Email:', email);
-            console.log('Senha:', password);
+
+        try{
+            response = await loginService.login(email, password);
+            if(response.success){
+                navigate('/home');
+            }
+
+        }catch{
+            alert("Erro ao logar, tente novamente");
         }
+        
+    }
+
+    function handleCadasterUser(e){
+        e.preventDefault();
+        navigate('/cadastrarUsuario');
     }
 
     return(
         <div className="container">
             <main className='login'>
+
                 <h1>Bem-vindo de volta</h1>
+
                 <p>Entre para explorar métodos de estudo feitos para a você</p>
+
                 <form className='formLogin'>  
 
                     <div className="email">
@@ -48,7 +61,9 @@ function Login(){
                     </div>
 
                     <div className="password">
+
                         <h3 className="loginFieldLabel"><RiLockPasswordLine aria-hidden="true" /> Senha</h3>
+
                         <input type="password" placeholder="Senha"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -56,7 +71,8 @@ function Login(){
                     </div>
 
                     <Button onClick={handleLogin} className="buttonLogin" text="Login" icon={<CiLogin aria-hidden="true" />} />
-                    <Button onClick={handleLogin} className="buttonCadastrarUsuario" text="Cadastrar Usuario" icon={<FaSignInAlt aria-hidden="true" />} />
+
+                    <Button onClick={handleCadasterUser} className="buttonCadastrarUsuario" text="Cadastrar Usuario" icon={<FaSignInAlt aria-hidden="true" />} />
 
                     <p>Ao clicar em "Login", você concorda com nossos termos de serviço e política de privacidade.</p>
 
