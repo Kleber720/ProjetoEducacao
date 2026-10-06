@@ -1,3 +1,4 @@
+import "./Home.css"
 
 
 function home(){
@@ -8,7 +9,7 @@ function home(){
             </footer>
 
             <main className="middle">
-                <div className="cardPomodoro">
+                <div className="cardPomodoro"> 
 
                 </div>
 
@@ -24,3 +25,4 @@ function home(){
         </div>
     )
 }
+export default home;
