@@ -1,7 +1,35 @@
 
 body{
+    height: 300vh;
+    width: 100%;
     background-image: url("../assets/vegapunk.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
+.containerHome{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.start{
+    height:100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phraseEinstein{
+    font-size: 1.5rem;
+    text-align: center;
+    color: white;
+}
+

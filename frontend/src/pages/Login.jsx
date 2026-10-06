@@ -20,13 +20,13 @@ function Login(){
         e.preventDefault();
 
         try{
-            response = await loginService.login(email, password);
+            const response = await loginService.login(email, password);
             if(response.success){
                 navigate('/home');
             }
 
-        }catch{
-            alert("Erro ao logar, tente novamente");
+        }catch(error){
+            alert(error.message || "Erro ao logar, tente novamente");
         }
         
     }
@@ -44,7 +44,7 @@ function Login(){
 
                 <p>Entre para explorar métodos de estudo feitos para a você</p>
 
-                <form className='formLogin'>  
+                <form className='formLogin' onSubmit={handleLogin}>
 
                     <div className="email">
                          
@@ -72,7 +72,7 @@ function Login(){
                         />
                     </div>
 
-                    <Button onClick={handleLogin} className="buttonLogin" text="Login" icon={<CiLogin aria-hidden="true" />} />
+                    <Button type="submit" className="buttonLogin" text="Login" icon={<CiLogin aria-hidden="true" />} />
 
                     <Button onClick={handleCadasterUser} className="buttonCadastrarUsuario" text="Cadastrar Usuario" icon={<FaSignInAlt aria-hidden="true" />} />
 

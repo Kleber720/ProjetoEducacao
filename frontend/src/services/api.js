@@ -19,8 +19,8 @@ async function api(url, options = {}) {
     );
 
     if (!response.ok) {
-
-        throw new Error("Erro na requisição");
+        const error = await response.json().catch(() => null);
+        throw new Error(error?.message || "Erro na requisição");
     }
 
     return response.json();

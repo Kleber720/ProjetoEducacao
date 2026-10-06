@@ -1,6 +1,7 @@
 import { User } from "../models/entities/User";
 
 export interface UserRepository {
+    findUserForLogin(email: string): Promise<any>;
     createUser(user:User): Promise<User>;
     searchUser(): Promise<any>
     searchUserByName(name:string): Promise<any>;

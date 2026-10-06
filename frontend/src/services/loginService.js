@@ -1,9 +1,9 @@
 import api from "./api";
 
-async function login(name,password) {
-    const response = await api("login", {
+async function login(email,password) {
+    const response = await api("api/login", {
         method: "POST",
-        body: JSON.stringify({ name, password })
+        body: JSON.stringify({ email, password })
     });
     return response;
     

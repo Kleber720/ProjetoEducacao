@@ -17,9 +17,10 @@ function CadastrarUsuario() {
         e.preventDefault();
 
         try {
-            const response = await registerUser(nome, email, senha);
+            const response = await registerUser(name, email, password);
             console.log(response);
             navigate('/login');
+            
         } catch (error) {
             console.error(error);
         }
@@ -31,7 +32,7 @@ function CadastrarUsuario() {
 
                 
 
-                <form className='cadastro'>
+                <form className='cadastro' onSubmit={handleSubmit}>
                     <h1 className='principalTitle'>Cadastrar Usuário</h1>
 
                     <h3 className="titleSecondary">Dados do Usuário</h3>
@@ -40,12 +41,12 @@ function CadastrarUsuario() {
                     <input type="text" placeholder="Nome" value={name} onChange={(e)=>setName(e.target.value)} />
 
                     <h3 className="title"><MdOutlineEmail aria-hidden="true" /> E-mail</h3>
-                    <input type="email" placeholder="Email" value={e} onChange={(e)=>setEmail(e.target.value)} />
+                    <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} />
 
                     <h3 className="title"><RiLockPasswordLine aria-hidden="true" /> Senha</h3>
                     <input type="password" placeholder="Senha" value={password} onChange={(e)=> setPassword(e.target.value)} />
 
-                    <Button type="submit" className="buttonCadastrar" text="Cadastrar" icon={<FaSignInAlt aria-hidden="true" onClick={handleSubmit} />} />
+                    <Button type="submit" className="buttonCadastrar" text="Cadastrar" icon={<FaSignInAlt aria-hidden="true" />} />
                 </form>
             </main>
         </div>

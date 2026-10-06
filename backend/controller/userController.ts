@@ -2,6 +2,29 @@ import {  Request, Response } from "express";
 import  userService from "../services/UserServices";
 
 class UserController {
+    async login(req: Request, res: Response): Promise<void> {
+        const { email, password } = req.body ?? {};
+
+        if (typeof email !== "string" || !email.trim() ||
+            typeof password !== "string" || !password) {
+            res.status(400).json({ success: false, message: "Informe e-mail e senha." });
+            return;
+        }
+
+        try {
+            const user = await userService.login(email.trim(), password);
+
+            if (!user) {
+                res.status(401).json({ success: false, message: "E-mail ou senha incorretos." });
+                return;
+            }
+
+            res.status(200).json({ success: true, user });
+        } catch (error) {
+            res.status(500).json({ success: false, message: "Erro ao realizar login." });
+        }
+    }
+
     async createUser(req: Request, res: Response): Promise<void> {
         try{
             const userDTO= req.body;

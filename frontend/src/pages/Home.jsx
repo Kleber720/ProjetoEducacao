@@ -4,22 +4,22 @@ import "./Home.css"
 function home(){
     return(
         <div className="containerHome">
-            <footer className="start">
-                <h1>"O importante é não parar de questionar, <br/> a curiosidade tem sua própria razão de existir."</h1>
-            </footer>
+            <article className="start">
+                <h1 className="phraseEinstein">"O importante é não parar de questionar, <br/> a curiosidade tem sua própria razão de existir."</h1>
+            </article>
 
             <main className="middle">
-                <div className="cardPomodoro"> 
+                <section className="cardPomodoro"> 
 
-                </div>
+                </section>
 
-                <div className="cardCornell">
+                <section className="cardCornell">
 
-                </div>
+                </section>
 
-                <div className="cardMindMap">
+                <section className="cardMindMap">
                     
-                </div>
+                </section>
 
             </main>
         </div>

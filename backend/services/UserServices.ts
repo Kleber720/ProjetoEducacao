@@ -9,11 +9,30 @@ import { responseSearchUserDTO } from "../models/dto/user/responseSearchUserDTO"
 
 class UserServices {
 
+    async login(email: string, password: string): Promise<any> {
+        const user = await userInfrastructure.findUserForLogin(email);
+
+        if (!user) {
+            return null;
+        }
+
+        const storedPassword = Buffer.isBuffer(user.password)
+            ? user.password.toString("utf8")
+            : user.password;
+
+        if (storedPassword !== password) {
+            return null;
+        }
+
+        return { id: user.id, name: user.name, email: user.email };
+    }
+
     async  createUser(userDTO: createUserDTO): Promise <any>{
         
         try{
             const user= new User(userDTO.name,userDTO.password,userDTO.email,userDTO.phone);
-            await userInfrastructure.createUser(user);
+            const id = await userInfrastructure.createUser(user);
+            return { id };
 
         }catch(erro){
             throw new Error(`Error when registering a user: ${erro}` )

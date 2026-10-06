@@ -6,12 +6,20 @@ import {UserRepository} from "../repository/UserRepository"
 
 class UserInfrastructure implements UserRepository{
 
+    async findUserForLogin(email: string): Promise<RowDataPacket | null> {
+        const [users] = await pool.query<RowDataPacket[]>(
+            "SELECT id, name, email, password FROM user WHERE email = ? LIMIT 1",
+            [email]
+        );
+        return users[0] ?? null;
+    }
+
    async createUser(user: User): Promise<any> {
         const connection= await pool.getConnection();
         try{
             const [result] = await connection.query<ResultSetHeader>(
                 "INSERT INTO user(name, password, email, phone) VALUES(?,?,?,?)",
-                [user.getName(), user.getPassword(),user.getEmail(), user.getPhone()]   
+                [user.getName(), user.getPassword().password, user.getEmail().email, user.getPhone() ?? null]
             )
 
             return result.insertId;
