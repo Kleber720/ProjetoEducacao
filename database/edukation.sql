@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS cornell(
     FOREIGN KEY(userId) REFERENCES User(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Remove as tabelas antigas, começando pelas dependentes.
+
 DROP TABLE IF EXISTS timeline;
 DROP TABLE IF EXISTS module;
 DROP TABLE IF EXISTS activities;
