@@ -25,13 +25,3 @@ export function getYouTubeId(value) {
         return null;
     }
 }
-
-export function remainingSeconds(deadline, now = Date.now()) {
-    return Math.max(0, Math.ceil((deadline - now) / 1000));
-}
-
-export function nextSession(timer, completed = true) {
-    const cycles = timer.cycles + (completed && timer.mode === 'focus' ? 1 : 0);
-    const mode = timer.mode === 'focus' ? (cycles > 0 && cycles % 4 === 0 ? 'long' : 'short') : 'focus';
-    return { mode, cycles, remaining: POMODORO_MODES[mode].seconds, running: false, deadline: null };
-}

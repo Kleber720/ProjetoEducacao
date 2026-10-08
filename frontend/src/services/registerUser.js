@@ -7,4 +7,3 @@ export async function registerUser(name, email, password) {
     });
     return response;
 }
-export default { registerUser };

@@ -3,10 +3,8 @@
 :root{
   --color-brand-primary:#241761;
   --color-brand-secondary: #32218A;
-  --color-brand-tertiary: #412BB3;
   --color-brand-quaternary: #5035DB;
   --color-white: #FFFFFF;
-  --color-black: #000000;
   --font-family-primary: 'Instrument Sans', sans-serif;
 }
 

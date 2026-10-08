@@ -98,7 +98,6 @@ class UserServices {
             passwordChanged ? validPassword(userDTO.password) : '',
             Object.hasOwn(userDTO, 'email') ? validEmail(userDTO.email) : current.email,
             Object.hasOwn(userDTO, 'phone') ? validPhone(userDTO.phone) : current.phone,
-            id,
         );
         if (user.getName().length > 255) throw new UserError('Nome deve ter até 255 caracteres.', 400);
         if (!await userInfrastructure.updateUserById(id, user, passwordChanged)) throw new UserError('Usuário não encontrado.', 404);

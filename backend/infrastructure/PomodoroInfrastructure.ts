@@ -1,4 +1,4 @@
-import { Pomodoro } from "../models/entities/Pomodoro";
+import type { Pomodoro } from "../models/entities/Pomodoro";
 import type { RowDataPacket, ResultSetHeader } from "mysql2/promise";
 import type { PomodoroRepository } from "../repository/PomodoroRepository";
 import type { createPomodoroDTO } from "../models/dto/pomodoro/createPomodoroDTO";

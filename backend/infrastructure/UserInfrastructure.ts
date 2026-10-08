@@ -1,4 +1,4 @@
-import { User } from '../models/entities/User';
+import type { User } from '../models/entities/User';
 import pool from '../config/db';
 import type { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 import type { UserRepository } from '../repository/UserRepository';

@@ -1,4 +1,4 @@
-import { Cornell } from "../models/entities/Cornell";
+import type { Cornell } from "../models/entities/Cornell";
 import type { RowDataPacket, ResultSetHeader } from "mysql2/promise";
 import type { CornellRepository } from "../repository/CornellRepository";
 import type { createCornellDTO } from "../models/dto/cornell/createCornellDTO";

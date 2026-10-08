@@ -17,8 +17,7 @@ function CadastrarUsuario() {
         e.preventDefault();
 
         try {
-            const response = await registerUser(name, email, password);
-            console.log(response);
+            await registerUser(name, email, password);
             navigate('/login');
             
         } catch (error) {

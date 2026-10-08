@@ -34,13 +34,6 @@
     color: #bcb4ff;
 }
 
-.notebookPage .notebookEyebrow{
-    margin-bottom: 6px;
-    color: #aaa0ff;
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-}
-
 .notebookPage .notebookTitle{
     font-size: clamp(1.6rem, 3vw, 2.2rem);
 }
