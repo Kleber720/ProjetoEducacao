@@ -1,35 +1,298 @@
-
-body{
-    height: 300vh;
+.homePage{
+    min-height: 100vh;
     width: 100%;
-    background-image: url("../assets/vegapunk.png");
+    background-image: linear-gradient(rgba(12, 9, 24, 0.55), rgba(12, 9, 24, 0.85)), url("../assets/vegapunk.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    color: var(--color-white);
 }
 
-.containerHome{
-    height: 100vh;
+.homePage .containerHome{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    
 }
 
-.start{
-    height:100%;
+.homePage .start{
+    min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
+    padding: 64px 24px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 28px;
 }
 
-.phraseEinstein{
-    font-size: 1.5rem;
+.homePage .phraseEinstein{
+    max-width: 900px;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    line-height: 1.6;
     text-align: center;
-    color: white;
+    color: var(--color-white);
+    animation: loginTextAnimation 1.5s ;
 }
 
+.homePage .homeExplore{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #e2dcff;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    animation: loginTextAnimation 1.5s ;
+}
+
+.homePage .homeExplore:hover{
+    background-color: rgba(80, 53, 219, 0.3);
+}
+
+.homePage .middle{
+    width: min(1200px, 100%);
+    padding: 24px 32px 80px;
+    scroll-margin-top: 24px;
+}
+
+.homePage .homeMethodsHeader{
+    max-width: 680px;
+    margin: 0 auto 36px;
+    text-align: center;
+   
+}
+
+.homePage .homeMethodsEyebrow{
+    color: #c4b5fd;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    margin-bottom: 12px;
+}
+
+.homePage .homeMethodsTitle{
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    margin-bottom: 14px;
+    line-height: 1.25;
+}
+
+.homePage .homeMethodsDescription{
+    color: #d0cbdc;
+    line-height: 1.7;
+}
+
+.homePage .cards{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 24px;
+}
+
+.homePage .studyCard{
+    min-width: 0;
+    padding: 28px;
+    border: 1px solid rgba(196, 181, 253, 0.25);
+    border-radius: 20px;
+    background-color: rgba(16, 12, 30, 0.94);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: opacity 600ms ease, transform 600ms ease, border-color 180ms ease;
+}
+
+.homePage .studyCard.revealPending{
+    opacity: 0;
+    transform: translateY(32px);
+}
+
+.homePage .studyCard.revealPending:focus-within{
+    opacity: 1;
+    transform: none;
+}
+
+.homePage .studyCard.isVisible{
+    opacity: 1;
+}
+
+.homePage .studyCard:hover{
+    transform: translateY(-5px);
+    border-color: #a78bfa;
+}
+
+.homePage .studyCardImage{
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin-bottom: 24px;
+    border-radius: 12px;
+}
+
+.homePage .studyCardCategory{
+    color: #b7a6eb;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.homePage .studyCardTitle{
+    font-size: 1.6rem;
+    margin: 10px 0 14px;
+}
+
+.homePage .studyCardDescription{
+    min-height: 112px;
+    color: #d0cbdc;
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+
+.homePage .studyCardHighlight{
+    margin: 20px 0;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: rgba(80, 53, 219, 0.16);
+    color: #dfd5ff;
+    font-size: 0.85rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.homePage .studyCardDetails{
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition: grid-template-rows 300ms ease, opacity 300ms ease;
+}
+
+.homePage .studyCard:hover .studyCardDetails,
+.homePage .studyCard:focus-within .studyCardDetails{
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (hover: none), (pointer: coarse){
+    .homePage .studyCard .studyCardDetails{
+        grid-template-rows: 1fr;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.homePage .studyCard:focus-visible,
+.homePage .homeExplore:focus-visible{
+    outline: 3px solid #c4b5fd;
+    outline-offset: 4px;
+}
+
+.homePage .studyCardSteps{
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 0 0 20px;
+    color: #d0cbdc;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.homePage .studyCardStep + .studyCardStep{
+    margin-top: 10px;
+}
+
+
+
+@media (max-width: 900px){
+    .homePage .cards{
+        grid-template-columns: 1fr;
+        max-width: 560px;
+        margin: 0 auto;
+    }
+
+    .homePage .studyCardDescription{
+        min-height: 0;
+    }
+}
+
+@media (max-width: 480px){
+    .homePage .middle{
+        padding: 20px 16px 48px;
+    }
+
+    .homePage .studyCard{
+        padding: 24px;
+    }
+
+    .homePage .phraseEinsteinBreak{
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .homePage .studyCard,
+    .homePage .studyCardDetails{
+        transition: none;
+    }
+
+    .homePage .studyCard.revealPending{
+        opacity: 1;
+        transform: none;
+    }
+
+    .homePage .studyCard:hover{
+        transform: none;
+    }
+}
+
+.homePage .homeFooter{
+    width: 100%;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid rgba(196, 181, 253, 0.2);
+    background-color: rgba(12, 9, 24, 0.94);
+    text-align: center;
+}
+
+.homePage .homeFooterText,
+.homePage .homeFooterCredit{
+    margin: 0;
+    font-family: var(--font-family-primary);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #d0cbdc;
+}
+
+.homePage .homeFooterCredit{
+    color: #c4b5fd;
+}
+
+@media (max-width: 480px){
+    .homePage .homeFooter{
+        padding: 24px 16px;
+    }
+
+    .homePage .homeFooterText,
+    .homePage .homeFooterCredit{
+        font-size: 0.8rem;
+    }
+}
+
+.homePage .cardPomodoro{
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homePage .cardCornell{
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}

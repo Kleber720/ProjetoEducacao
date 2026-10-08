@@ -37,21 +37,21 @@ function Login(){
     }
 
     return(
-        <div className="container">
+        <div className="containerLogin">
             <main className='login'>
 
-                <h1>Bem-vindo de volta</h1>
+                <h1 className="loginTitle">Bem-vindo de volta</h1>
 
-                <p>Entre para explorar métodos de estudo feitos para a você</p>
+                <p className="loginDescription">Entre para explorar métodos de estudo feitos para a você</p>
 
                 <form className='formLogin' onSubmit={handleLogin}>
 
                     <div className="email">
                          
                         
-                        <h3 className="loginFieldLabel"><MdOutlineEmail aria-hidden="true" /> E-mail</h3>
+                        <h3 className="loginFieldLabel"><MdOutlineEmail className="loginIcon" aria-hidden="true" /> E-mail</h3>
                         
-                        <input
+                        <input className="loginInput"
                         
                        
                             type="text"
@@ -64,19 +64,19 @@ function Login(){
 
                     <div className="password">
 
-                        <h3 className="loginFieldLabel"><RiLockPasswordLine aria-hidden="true" /> Senha</h3>
+                        <h3 className="loginFieldLabel"><RiLockPasswordLine className="loginIcon" aria-hidden="true" /> Senha</h3>
 
-                        <input type="password" placeholder="Senha"
+                        <input className="loginInput" type="password" placeholder="Senha"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
 
-                    <Button type="submit" className="buttonLogin" text="Login" icon={<CiLogin aria-hidden="true" />} />
+                    <Button type="submit" className="buttonLogin" text="Login" icon={<CiLogin className="loginIcon" aria-hidden="true" />} />
 
-                    <Button onClick={handleCadasterUser} className="buttonCadastrarUsuario" text="Cadastrar Usuario" icon={<FaSignInAlt aria-hidden="true" />} />
+                    <Button onClick={handleCadasterUser} className="buttonCadastrarUsuario" text="Cadastrar Usuario" icon={<FaSignInAlt className="loginIcon" aria-hidden="true" />} />
 
-                    <p>Ao clicar em "Login", você concorda com nossos termos de serviço e política de privacidade.</p>
+                    <p className="loginTerms"> em "Login", você concorda com nossos termos de serviço e política de privacidade.</p>
 
                 </form>
 

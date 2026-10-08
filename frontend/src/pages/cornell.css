@@ -1,0 +1,492 @@
+.cornellPage{
+    --cornell-accent: #6251ff;
+    --cornell-muted: #a5a4b8;
+    min-height: 100vh;
+    padding: 28px clamp(16px, 2.5vw, 40px) 48px;
+    background: linear-gradient(180deg, rgba(18, 18, 29, 0.76), #191923 90%), url('../assets/vegapunk.png') center / cover fixed;
+    color: var(--color-white);
+    font-family: var(--font-family-primary);
+}
+
+.cornellPage .cornellHeader{
+    max-width: 1600px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cornellPage .cornellHeading{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 0;
+}
+
+.cornellPage .cornellBackLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: var(--cornell-muted);
+    text-decoration: none;
+}
+
+.cornellPage .cornellBackLink:hover{
+    background: rgba(98, 81, 255, 0.15);
+    color: var(--color-white);
+}
+
+.cornellPage .cornellEyebrow{
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: #aaa0ff;
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+.cornellPage .cornellPageTitle{
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 600;
+}
+
+.cornellPage .cornellWorkspace{
+    display: grid;
+    grid-template-columns: minmax(340px, 1.35fr) minmax(0, 1.5fr) minmax(190px, 0.65fr);
+    align-items: stretch;
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.cornellPage .cornellPanel{
+    min-width: 0;
+    min-height: 610px;
+    padding: 24px;
+    border: 1px solid rgba(202, 199, 226, 0.2);
+    border-radius: 20px;
+    background: rgba(27, 27, 38, 0.94);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.cornellPage .cornellNotebook{
+    display: flex;
+    flex-direction: column;
+}
+
+.cornellPage .cornellPanelEyebrow{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #a59ce0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+}
+
+.cornellPage .cornellLabel{
+    display: block;
+    color: #d4d2df;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.cornellPage .cornellInput{
+    width: 100%;
+    min-width: 0;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 12px;
+    background-color: #282834;
+    color: var(--color-white);
+    font-family: var(--font-family-primary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.cornellPage .cornellInput::placeholder{
+    color: #a4a2b1;
+}
+
+.cornellPage .cornellNotebook .cornellInput{
+    margin-bottom: 20px;
+}
+
+.cornellPage .cornellNotes{
+    min-height: 300px;
+    flex: 1;
+    resize: vertical;
+}
+
+.cornellPage .cornellNotebookStatus{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    justify-content: space-between;
+    margin-top: 16px;
+    color: var(--cornell-muted);
+    font-size: 0.75rem;
+    line-height: 1.6;
+}
+
+.cornellPage .cornellSaveStatus{
+    color: #a59ce0;
+}
+
+.cornellPage .cornellPanelTitle{
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.cornellPage .cornellVideoForm{
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.cornellPage .cornellVideoField{
+    flex: 1;
+    min-width: 0;
+}
+
+.cornellPage .cornellLinkInput{
+    position: relative;
+}
+
+.cornellPage .cornellLinkInput .cornellInput{
+    padding-left: 36px;
+}
+
+.cornellPage .cornellLinkIcon{
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--cornell-muted);
+    pointer-events: none;
+}
+
+.cornellPage .cornellPrimaryButton{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 24px;
+    background: var(--cornell-accent);
+    color: var(--color-white);
+    font-size: 0.95rem;
+    font-family: var(--font-family-primary);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cornellPage .cornellPrimaryButton:hover{
+    background: #7768ff;
+}
+
+.cornellPage .cornellPlayer{
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(202, 199, 226, 0.2);
+    background: radial-gradient(ellipse at 75% 80%, rgba(65, 43, 179, 0.2), transparent 65%), #111116;
+}
+
+.cornellPage .cornellVideoFrame{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.cornellPage .cornellVideoPlaceholder{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 24px;
+    text-align: center;
+}
+
+.cornellPage .cornellYoutubeIcon{
+    width: 48px;
+    height: 48px;
+    color: #aaa0ff;
+}
+
+.cornellPage .cornellPlaceholderTitle{
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.cornellPage .cornellPlaceholderText{
+    max-width: 340px;
+    font-size: 0.85rem;
+    color: var(--cornell-muted);
+    line-height: 1.7;
+}
+
+.cornellPage .cornellVideoError{
+    margin: -8px 0 16px;
+    color: #ffb4bc;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.cornellPage .cornellYoutubeLink{
+    display: inline-block;
+    margin-top: 16px;
+    color: #bcb4ff;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.cornellPage .cornellYoutubeLink:hover{
+    text-decoration: underline;
+}
+
+.cornellPage :is(.cornellBackLink, .cornellInput, .cornellPrimaryButton, .cornellYoutubeLink):focus-visible{
+    outline: 2px solid #bcb4ff;
+    outline-offset: 4px;
+}
+
+
+.cornellPage .cornellBadge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: var(--cornell-accent);
+    font-size: 0.8rem;
+}
+
+.cornellPage .cornellSheet{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr);
+    flex: 1;
+    border: 1px solid rgba(202, 199, 226, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #22222e;
+}
+
+.cornellPage .cornellCuesArea,
+.cornellPage .cornellNotesArea,
+.cornellPage .cornellSummaryArea{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    min-width: 0;
+}
+
+.cornellPage .cornellCuesArea{
+    border-right: 1px solid rgba(170, 160, 255, 0.35);
+    background: rgba(98, 81, 255, 0.05);
+}
+
+.cornellPage .cornellSummaryArea{
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(170, 160, 255, 0.35);
+}
+
+.cornellPage .cornellSheetLabel{
+    color: #d7d1ff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.cornellPage .cornellFieldHint{
+    color: var(--cornell-muted);
+    font-size: 0.7rem;
+    line-height: 1.5;
+    margin: 6px 0 12px;
+}
+
+.cornellPage .cornellSheetInput{
+    width: 100%;
+    min-height: 280px;
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: repeating-linear-gradient(transparent, transparent 27px, rgba(202, 199, 226, 0.06) 27px, rgba(202, 199, 226, 0.06) 28px);
+    color: var(--color-white);
+    font-family: var(--font-family-primary);
+    font-size: 0.9rem;
+    line-height: 28px;
+    resize: vertical;
+}
+
+.cornellPage .cornellSheetInput::placeholder{
+    color: #9a98ab;
+}
+
+.cornellPage .cornellSummaryInput{
+    min-height: 112px;
+}
+
+.cornellPage .cornellVideoHint{
+    margin-top: 24px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(98, 81, 255, 0.08);
+    color: var(--cornell-muted);
+    font-size: 0.85rem;
+    line-height: 1.8;
+}
+
+.cornellPage .cornellGuideSteps{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.cornellPage .cornellStepNumber{
+    display: inline-block;
+    padding: 6px 9px;
+    margin-bottom: 12px;
+    background: rgba(98, 81, 255, 0.15);
+    border-radius: 8px;
+    color: #bcb4ff;
+    font-size: 0.75rem;
+}
+
+.cornellPage .cornellStepTitle{
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.cornellPage .cornellStepText,
+.cornellPage .cornellTipText{
+    color: var(--cornell-muted);
+    font-size: 0.85rem;
+    line-height: 1.8;
+}
+
+.cornellPage .cornellReviewTip{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(202, 199, 226, 0.2);
+}
+
+.cornellPage .cornellTipIcon{
+    margin-top: 4px;
+    color: #bcb4ff;
+    flex-shrink: 0;
+}
+
+.cornellPage .cornellSheetInput:focus-visible{
+    outline: 2px solid #bcb4ff;
+    outline-offset: -2px;
+}
+
+@media (max-width: 1250px){
+    .cornellPage .cornellWorkspace{
+        grid-template-columns: minmax(340px, 1fr) minmax(0, 1fr);
+    }
+
+    .cornellPage .cornellGuide{
+        grid-column: 1 / -1;
+        min-height: 0;
+    }
+
+    .cornellPage .cornellGuideSteps{
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cornellPage .cornellVideoForm{
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 800px){
+    .cornellPage .cornellHeader{
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .cornellPage .cornellWorkspace{
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .cornellPage .cornellPanel{
+        min-height: 0;
+        padding: 20px;
+    }
+
+    .cornellPage .cornellVideoPanel{
+        grid-row: 1;
+    }
+}
+
+@media (max-width: 480px){
+    .cornellPage .cornellHeading{
+        gap: 12px;
+    }
+
+    .cornellPage .cornellGuideSteps{
+        grid-template-columns: 1fr;
+    }
+
+    .cornellPage .cornellCuesArea,
+    .cornellPage .cornellNotesArea,
+    .cornellPage .cornellSummaryArea{
+        padding: 12px 8px;
+    }
+
+    .cornellPage .cornellVideoPlaceholder{
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .cornellPage .cornellYoutubeIcon{
+        width: 28px;
+        height: 28px;
+    }
+
+    .cornellPage .cornellPlaceholderTitle{
+        font-size: 0.9rem;
+    }
+
+    .cornellPage .cornellPlaceholderText{
+        font-size: 0.75rem;
+    }
+}
+
+.cornellPage .cornellSaveButton{
+    margin-top: 16px;
+}
+
+.cornellPage .cornellPrimaryButton:disabled{
+    opacity: 0.55;
+    cursor: default;
+}
+
+.cornellPage .cornellChooseButton{
+    align-self: flex-start;
+    margin-bottom: 20px;
+}

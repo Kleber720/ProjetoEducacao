@@ -12,17 +12,17 @@
     gap: 8px;
 }
 
-.login svg{
+.login .loginIcon{
     width: 20px;
     height: 20px;
     flex-shrink: 0;
     color: var(--color-white);
 }
 
-.container{
+.containerLogin{
     height: 100vh;
     width: 100vw;
-    background-image: url("../assets/vegapunk.png");
+    background-image: url("../assets/telaEduKation.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -32,10 +32,10 @@
 }
 
 .login{
-    
-    padding: 20px;
     width:30%;
     height: 80%;
+    padding: 20px;
+    margin-left: 20px;
     border-radius: 10px;
     box-shadow: rgba(25, 16, 27, 0.35) 0px 5px 15px;
     background-color: rgba(0, 0, 0, 0.918);
@@ -45,10 +45,10 @@
     align-items: center;
     justify-content: left;
     animation-duration: 2s;
-    animation-name: formAnimation;
+    animation-name: loginFormAnimation;
 }
 
-@keyframes formAnimation{
+@keyframes loginFormAnimation{
     from {
         opacity: 0;
         transform: translateY(40%);
@@ -61,7 +61,7 @@
     
 }
 
-.email{
+.login .email{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -71,7 +71,7 @@
     margin-bottom: 20px;
 }
 
-.password{
+.login .password{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -81,27 +81,26 @@
     margin-bottom: 20px;
 }
 
-h1{
+.login .loginTitle{
     width: 100%;
     font-size: 2rem;
     margin-bottom: 20px;
     color: rgb(206, 202, 202);
     font-family: var(--font-family-primary);
-    animation: 2s textAnimation;
+    animation: 2s loginTextAnimation;
 }
 
-p{
+.login .loginDescription,
+.login .loginTerms{
     width: 100%;
     font-size: 1rem;
     margin-bottom: 20px;
     color: grey;
     font-family: var(--font-family-primary);
-    animation: 2s textAnimation;
+    animation: 2s loginTextAnimation;
 }
 
-
-
-@keyframes textAnimation{
+@keyframes loginTextAnimation{
     from {
         opacity: 0;
         transform: translateX(40%);
@@ -114,16 +113,19 @@ p{
     
 }
 
-h3{
+
+
+
+.login .loginFieldLabel{
     width: 100%;
     font-size: 1rem;
     margin-bottom: 20px;
     color: rgb(255, 255, 255);
     font-family: var(--font-family-primary);
-    animation: 2s textAnimation;
+    animation: 2s loginTextAnimation;
 }
 
-input{
+.login .loginInput{
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -133,10 +135,10 @@ input{
     font-family: var(--font-family-primary);
     background-color: rgba(44, 44, 46, 0.664); 
     color:white;
-    animation: 2s inputAnimation;
+    animation: 2s loginInputAnimation;
 }
 
-@keyframes inputAnimation{
+@keyframes loginInputAnimation{
     from {
         opacity: 0;
         transform: translateX(40%);

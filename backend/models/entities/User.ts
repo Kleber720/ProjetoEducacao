@@ -6,9 +6,9 @@ export class User{
    private name: string;
    private password: Password;
    private email:Email;
-   private phone:string;
+   private phone:string | null;
 
-    constructor(name:string,password:string,email:string,phone:string,id?:number){
+    constructor(name:string,password:string,email:string,phone:string | null,id?:number){
         this.name=this.processName(name)
         this.password=new Password(password)
         this.email=new Email(email)
@@ -25,7 +25,7 @@ export class User{
     }
 
     setName(name:string):void{
-        this.name=name
+        this.name=this.processName(name)
     }
 
     getPassword():Password{
@@ -44,23 +44,19 @@ export class User{
         this.email=email
     }
 
-    getPhone():string{
+    getPhone():string | null{
         return this.phone
     }
 
-    setPhone(phone:string):void{
+    setPhone(phone:string | null):void{
         this.phone=phone
     }
 
     processName(name:string){
-       name.toUpperCase()
-
-       return name;
+       return name.trim().toUpperCase();
     }
 
 
 }
 
-const u1 = new User('kleber','111111111111111111',"kleb@","11111111")
 
-u1.getName

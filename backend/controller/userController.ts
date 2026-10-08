@@ -1,104 +1,107 @@
-import {  Request, Response } from "express";
-import  userService from "../services/UserServices";
+import type { Request, Response } from 'express';
+import userService from '../services/UserServices';
+import { UserError } from '../services/UserErrors';
+
+function routeText(value: unknown): string {
+    if (typeof value !== 'string' || !value.trim()) throw new UserError('Parâmetro de busca inválido.', 400);
+    return value.trim();
+}
+
+function routeId(value: unknown): number {
+    const text = routeText(value);
+    const id = Number(text);
+    if (!/^\d+$/.test(text) || !Number.isSafeInteger(id) || id <= 0) throw new UserError('ID de usuário inválido.', 400);
+    return id;
+}
+
+function respondError(res: Response, error: unknown, login = false): void {
+    let status = 500;
+    let message = 'Erro ao processar a operação de usuário.';
+    if (error instanceof UserError) {
+        status = error.status;
+        message = error.message;
+    } else if (error && typeof error === 'object' && 'code' in error && error.code === 'ER_DUP_ENTRY') {
+        status = 409;
+        message = 'E-mail ou telefone já cadastrado.';
+    }
+    res.status(status).json(login ? { success: false, message } : { message });
+}
 
 class UserController {
     async login(req: Request, res: Response): Promise<void> {
         const { email, password } = req.body ?? {};
-
-        if (typeof email !== "string" || !email.trim() ||
-            typeof password !== "string" || !password) {
-            res.status(400).json({ success: false, message: "Informe e-mail e senha." });
+        if (typeof email !== 'string' || !email.trim() || typeof password !== 'string' || !password.trim()) {
+            res.status(400).json({ success: false, message: 'Informe e-mail e senha.' });
             return;
         }
-
         try {
-            const user = await userService.login(email.trim(), password);
-
+            const user = await userService.login(email, password);
             if (!user) {
-                res.status(401).json({ success: false, message: "E-mail ou senha incorretos." });
+                res.status(401).json({ success: false, message: 'E-mail ou senha incorretos.' });
                 return;
             }
-
             res.status(200).json({ success: true, user });
         } catch (error) {
-            res.status(500).json({ success: false, message: "Erro ao realizar login." });
+            respondError(res, error, true);
         }
     }
 
     async createUser(req: Request, res: Response): Promise<void> {
-        try{
-            const userDTO= req.body;
-            const users= await userService.createUser(userDTO);
-            return res.status(201).json(users);
-
-        }catch(error){
-            return res.status(500).json({ message: `Error creating user: ${error.message}` });
+        try {
+            res.status(201).json(await userService.createUser(req.body));
+        } catch (error) {
+            respondError(res, error);
         }
     }
 
-    async searchUser(req: Request, res: Response): Promise<any>{
-        try{
-            const user= await userService.searchUser(req);
-            return res.status(200).json(user);
-
-        }catch(error){
-            return res.status(500).json({ message: `Error searching user: ${error.message}`})
+    async searchUser(_req: Request, res: Response): Promise<void> {
+        try {
+            res.status(200).json(await userService.searchUser());
+        } catch (error) {
+            respondError(res, error);
         }
-
     }
 
     async searchUserById(req: Request, res: Response): Promise<void> {
-        try{
-            const user= await userService.searchUserById(req.params.id);
-            return res.status(200).json(user);
-
-        }catch(error){
-            return res.status(500).json({ message: `Error searching user by ID: ${error.message}` });
+        try {
+            res.status(200).json(await userService.searchUserById(routeId(req.params.id)));
+        } catch (error) {
+            respondError(res, error);
         }
     }
 
     async searchUserByEmail(req: Request, res: Response): Promise<void> {
-        try{
-            const user= await userService.searchUserByEmail(req.params.email);
-            return res.status(200).json(user);
-
-        }catch(error){
-            return res.status(500).json({ message: `Error searching user by email: ${error.message}` });
+        try {
+            res.status(200).json(await userService.searchUserByEmail(routeText(req.params.email)));
+        } catch (error) {
+            respondError(res, error);
         }
     }
 
     async searchUserByName(req: Request, res: Response): Promise<void> {
-        try{
-            const user= await userService.searchUserByName(req.params.name);
-            return res.status(200).json(user);
-
-        }catch(error){
-            return res.status(500).json({ message: `Error searching user by name: ${error.message}` });
+        try {
+            res.status(200).json(await userService.searchUserByName(routeText(req.params.name)));
+        } catch (error) {
+            respondError(res, error);
         }
-
-    
     }
 
     async deleteUserById(req: Request, res: Response): Promise<void> {
-        try{
-            await userService.deleteUserById(req.params.id);
-            return res.status(200).json({ message: "User deleted successfully" });
-
-        }catch(error){
-            return res.status(500).json({ message: `Error deleting user by ID: ${error.message}` });
+        try {
+            await userService.deleteUserById(routeId(req.params.id));
+            res.status(200).json({ message: 'Usuário excluído com sucesso.' });
+        } catch (error) {
+            respondError(res, error);
         }
-
     }
 
     async updateUserById(req: Request, res: Response): Promise<void> {
-        try{
-            const userUpdated= await userService.updateUserById(req.params.id, req.body);
-            return res.status(200).json(userUpdated);
-
-        }catch(error){
-            return res.status(500).json({ message: `Error updating user by ID: ${error.message}` });
+        try {
+            res.status(200).json(await userService.updateUserById(routeId(req.params.id), req.body));
+        } catch (error) {
+            respondError(res, error);
         }
     }
 }
-const userController= new UserController();
-export default userController;
+
+export default new UserController();

@@ -1,0 +1,118 @@
+.notebookChoicePage{
+    min-height: 100vh;
+    padding: 48px 20px;
+    background: linear-gradient(rgba(18, 18, 29, 0.8), #191923), url('../assets/vegapunk.png') center / cover fixed;
+    color: var(--color-white);
+}
+
+.notebookChoicePage .notebookChoicePanel{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(24px, 5vw, 40px);
+    border: 1px solid rgba(202, 199, 226, 0.2);
+    border-radius: 20px;
+    background: rgba(27, 27, 38, 0.96);
+}
+
+.notebookChoicePage .notebookChoiceBack{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    color: #bcb4ff;
+    text-decoration: none;
+}
+
+.notebookChoicePage .notebookChoiceMethod{
+    color: #aaa0ff;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.notebookChoicePage .notebookChoiceTitle{
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    line-height: 1.4;
+}
+
+.notebookChoicePage .notebookChoiceDescription,
+.notebookChoicePage .notebookChoiceMessage{
+    margin-top: 16px;
+    color: #b5b2c4;
+    line-height: 1.7;
+}
+
+.notebookChoicePage .notebookChoiceNew{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    margin: 28px 0;
+    border: none;
+    border-radius: 12px;
+    background: #6251ff;
+    color: var(--color-white);
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.notebookChoicePage .notebookChoiceNew:hover{
+    background: #7768ff;
+}
+
+.notebookChoicePage .notebookChoiceNew:disabled{
+    opacity: 0.55;
+    cursor: default;
+}
+
+.notebookChoicePage .notebookChoiceSubtitle{
+    padding-top: 24px;
+    border-top: 1px solid rgba(202, 199, 226, 0.2);
+    font-size: 1rem;
+}
+
+.notebookChoicePage .notebookChoiceList{
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.notebookChoicePage .notebookChoiceExisting{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    border: 1px solid rgba(202, 199, 226, 0.2);
+    border-radius: 12px;
+    background: #282834;
+    color: var(--color-white);
+    text-align: left;
+    cursor: pointer;
+}
+
+.notebookChoicePage .notebookChoiceExisting:hover{
+    border-color: #aaa0ff;
+}
+
+.notebookChoicePage .notebookChoiceIcon,
+.notebookChoicePage .notebookChoiceOpen{
+    flex-shrink: 0;
+    color: #bcb4ff;
+}
+
+.notebookChoicePage .notebookChoiceName{
+    flex: 1;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+.notebookChoicePage .notebookChoiceError{
+    margin-top: 16px;
+    color: #ffb4bc;
+    line-height: 1.7;
+}
+
+.notebookChoicePage :is(.notebookChoiceNew, .notebookChoiceExisting, .notebookChoiceBack):focus-visible{
+    outline: 2px solid #bcb4ff;
+    outline-offset: 4px;
+}

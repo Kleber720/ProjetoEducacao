@@ -74,7 +74,7 @@ INSERT INTO module(description) VALUES(
 );
 
 SELECT * FROM User;
-SELECT * FROM Category;
+SELECT * FROM pomodoro;
 SELECT * FROM Theme;
 SELECT * FROM activities;
 

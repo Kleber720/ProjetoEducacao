@@ -1,144 +1,60 @@
-import { User } from "../models/entities/User";
-import pool from "../config/db";
-import {RowDataPacket, ResultSetHeader} from "mysql2/promise";
-import {UserRepository} from "../repository/UserRepository"
+import { User } from '../models/entities/User';
+import pool from '../config/db';
+import type { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
+import type { UserRepository } from '../repository/UserRepository';
+import { hashPassword } from '../services/UserCredentials';
 
-
-class UserInfrastructure implements UserRepository{
-
+class UserInfrastructure implements UserRepository {
     async findUserForLogin(email: string): Promise<RowDataPacket | null> {
-        const [users] = await pool.query<RowDataPacket[]>(
-            "SELECT id, name, email, password FROM user WHERE email = ? LIMIT 1",
-            [email]
-        );
+        const [users] = await pool.query<RowDataPacket[]>('SELECT id, name, email, phone, password FROM user WHERE email = ? LIMIT 1', [email]);
         return users[0] ?? null;
     }
 
-   async createUser(user: User): Promise<any> {
-        const connection= await pool.getConnection();
-        try{
-            const [result] = await connection.query<ResultSetHeader>(
-                "INSERT INTO user(name, password, email, phone) VALUES(?,?,?,?)",
-                [user.getName(), user.getPassword().password, user.getEmail().email, user.getPhone() ?? null]
-            )
-
-            return result.insertId;
-            
-        }catch(error){
-            await connection.rollback();
-            throw error;
-
-        }finally{
-            connection.release();
-        }
+    async createUser(user: User): Promise<number> {
+        const password = await hashPassword(user.getPassword().password);
+        const [result] = await pool.query<ResultSetHeader>('INSERT INTO user(name, password, email, phone) VALUES(?,?,?,?)',
+            [user.getName(), password, user.getEmail().email, user.getPhone() ?? null]);
+        return result.insertId;
     }
 
-    async searchUser(): Promise<any> {
-        const connection = await pool.getConnection();
-        try{
-            const [user] = await connection.query<RowDataPacket[]>(
-                "SELECT * FROM user"
-            )
-            return user;
-
-        }catch(error){
-            throw error
-
-        }finally{
-            connection.release();
-        }
+    async searchUser(): Promise<RowDataPacket[]> {
+        const [users] = await pool.query<RowDataPacket[]>('SELECT id, name, email, phone FROM user');
+        return users;
     }
 
-    async searchUserById(id: number): Promise<any> {
-            
-            const connection= await pool.getConnection();
-            try{
-                const [user] = await connection.query<RowDataPacket[]>(
-                    "SELECT * FROM user WHERE id = ?",
-                    [id]
-                )
-                return user
     
-            }catch(error){
-                await connection.rollback();
-                throw error;
-    
-            }finally{
-                connection.release();
-            }
+    async searchUserById(id: number): Promise<RowDataPacket[]> {
+        const [users] = await pool.query<RowDataPacket[]>('SELECT * FROM user WHERE id = ?', [id]);
+        return users;
     }
 
-    async searchUserByName(name:string): Promise <any> {
-        const connection=  await pool.getConnection();
-        try{
-            const [user] = await connection.query<RowDataPacket[]>(
-                "SELECT * FROM user WHERE name LIKE ? ORDER BY name ASC",
-                [`%${name}%`]
-            )
-            return user
-
-        }catch(error){
-            await connection.rollback();
-            throw error;
-
-        }finally{
-            connection.release();
-        }
+    async searchUserByName(name: string): Promise<RowDataPacket[]> {
+        const [users] = await pool.query<RowDataPacket[]>('SELECT id, name, email, phone FROM user WHERE name LIKE ? ORDER BY name ASC', ['%' + name + '%']);
+        return users;
     }
 
-    async searchUserByEmail(email:string): Promise <any> {
-        const connection=  await pool.getConnection();
-        try{
-            const [user]= await connection.query<RowDataPacket[]>(
-                "SELECT * FROM user WHERE email LIKE ? ORDER BY email ASC",
-                [`%${email}%`]
-            )
-            return user
-
-        }catch(error){
-            await connection.rollback();
-            throw error;
-        
-        }finally{
-            connection.release();
-        }
+    async searchUserByEmail(email: string): Promise<RowDataPacket[]> {
+        const [users] = await pool.query<RowDataPacket[]>('SELECT id, name, email, phone FROM user WHERE email LIKE ? ORDER BY email ASC', ['%' + email + '%']);
+        return users;
     }
 
-    async deleteUserById(id:number): Promise<void> {
-        const connection= await pool.getConnection();
-        try{
-            await connection.query(
-                "DELETE FROM user WHERE id = ?",
-                [id]
-            )
-
-        }catch(error){
-            await connection.rollback();
-            throw error;
-
-        }finally{
-            connection.release();
-        }
+    async deleteUserById(id: number): Promise<boolean> {
+        const [result] = await pool.query<ResultSetHeader>('DELETE FROM user WHERE id = ?', [id]);
+        return result.affectedRows > 0;
     }
 
-    async updateUserById(id:number, user:User): Promise<boolean> {
-        const connection= await pool.getConnection();
-        try{
-            const [result] = await connection.query<ResultSetHeader>(
-                "UPDATE user SET name = ?, password = ?, email = ?, phone = ? WHERE id = ?",
-                [user.getName(), user.getPassword(), user.getEmail(), user.getPhone(), id]
-            )
-            return result.affectedRows > 0 
-
-        }catch(error){
-            await connection.rollback();
-            throw error;
-
-        }finally{
-            connection.release();
+    async updateUserById(id: number, user: User, passwordChanged = true): Promise<boolean> {
+        let sql = 'UPDATE user SET name = ?, email = ?, phone = ?';
+        const values: (string | number | Buffer | null)[] = [user.getName(), user.getEmail().email, user.getPhone() ?? null];
+        if (passwordChanged) {
+            sql += ', password = ?';
+            values.push(await hashPassword(user.getPassword().password));
         }
+        sql += ' WHERE id = ?';
+        values.push(id);
+        const [result] = await pool.query<ResultSetHeader>(sql, values);
+        return result.affectedRows > 0;
     }
 }
-const userInfrastructure= new UserInfrastructure();
 
-export default userInfrastructure
+export default new UserInfrastructure();

@@ -1,5 +1,5 @@
 
-    button{
+    .appButton{
         height: 50px;
         width: 100%;
         margin-bottom: 20px;
@@ -15,14 +15,14 @@
 
 
 
-    button:hover{
+    .appButton:hover{
         background-color: var(--color-brand-secondary);
         animation-duration: 0.5s;
         animation-name: buttonAnimation;
         
     }
 
-    button{
+    .appButton{
         animation-fill-mode: forwards;
         background-color: var(--color-brand-primary);
         animation-duration: 0.5s;

@@ -1,0 +1,226 @@
+.notebookPage{
+    min-height: 100vh;
+    padding: 32px 24px 56px 64px;
+    background: linear-gradient(rgba(18, 18, 29, 0.8), #191923), url('../assets/vegapunk.png') center / cover fixed;
+    color: var(--color-white);
+}
+
+.notebookPage .notebookContainer{
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.notebookPage .notebookHeader,
+.notebookPage .notebookHeading,
+.notebookPage .notebookGroupHeader{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.notebookPage .notebookHeader,
+.notebookPage .notebookGroupHeader{
+    justify-content: space-between;
+}
+
+.notebookPage .notebookBackLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    color: #bcb4ff;
+}
+
+.notebookPage .notebookEyebrow{
+    margin-bottom: 6px;
+    color: #aaa0ff;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+}
+
+.notebookPage .notebookTitle{
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.notebookPage .notebookIntroduction{
+    margin: 24px 0 32px;
+    color: #b5b2c4;
+    line-height: 1.7;
+}
+
+.notebookPage .notebookRefresh{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 1px solid rgba(196, 181, 253, 0.3);
+    border-radius: 10px;
+    background: #282834;
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.notebookPage .notebookRefresh:disabled{
+    opacity: 0.55;
+    cursor: default;
+}
+
+.notebookPage .notebookGroups{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 24px;
+}
+
+.notebookPage .notebookGroup,
+.notebookPage .notebookMessage{
+    padding: 24px;
+    border: 1px solid rgba(202, 199, 226, 0.2);
+    border-radius: 18px;
+    background: rgba(27, 27, 38, 0.96);
+}
+
+.notebookPage .notebookGroupTitle{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    font-size: 1.1rem;
+    color: #d7d1ff;
+}
+
+.notebookPage .notebookCount{
+    color: #b5b2c4;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.notebookPage .notebookList{
+    display: grid;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.notebookPage .notebookCard{
+    min-width: 0;
+    border: 1px solid rgba(202, 199, 226, 0.15);
+    border-radius: 12px;
+    background: #22222e;
+}
+
+.notebookPage .notebookCardSummary{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 12px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.notebookPage .notebookCardSummary::-webkit-details-marker{
+    display: none;
+}
+
+.notebookPage .notebookCardSummary:hover,
+.notebookPage .notebookBackLink:hover,
+.notebookPage .notebookRefresh:not(:disabled):hover{
+    background: rgba(98, 81, 255, 0.15);
+}
+
+.notebookPage .notebookCardTitle{
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.notebookPage .notebookExpandIcon{
+    flex-shrink: 0;
+    color: #bcb4ff;
+}
+
+.notebookPage .notebookCard[open] .notebookExpandIcon{
+    transform: rotate(180deg);
+}
+
+.notebookPage .notebookCardContent{
+    display: grid;
+    gap: 20px;
+    padding: 0 18px 20px;
+}
+
+.notebookPage .notebookFieldTitle{
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #bcb4ff;
+}
+
+.notebookPage .notebookFieldText{
+    color: #d4d2df;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.notebookPage .notebookEmpty,
+.notebookPage .notebookError{
+    margin-top: 24px;
+    color: #b5b2c4;
+    line-height: 1.7;
+}
+
+.notebookPage .notebookError{
+    color: #ffb4bc;
+}
+
+.notebookPage .notebookLink{
+    display: inline-block;
+    margin-top: 24px;
+    color: #bcb4ff;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.notebookPage .notebookLink:hover{
+    text-decoration: underline;
+}
+
+.notebookPage :is(.notebookLink, .notebookBackLink, .notebookRefresh, .notebookCardSummary):focus-visible{
+    outline: 2px solid #bcb4ff;
+    outline-offset: 4px;
+}
+
+@media (max-width: 760px){
+    .notebookPage{
+        padding: 24px 16px 40px 52px;
+    }
+
+    .notebookPage .notebookGroups{
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .notebookPage .notebookGroup{
+        padding: 20px;
+    }
+}
+
+@media (max-width: 420px){
+    .notebookPage .notebookHeader{
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .notebookPage .notebookGroupHeader{
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+}

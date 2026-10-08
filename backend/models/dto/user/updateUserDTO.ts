@@ -1,7 +1,7 @@
-export interface updateUserDTO{
-    id: number;
+export interface updateUserDTO {
+    id?: number;
     name?: string;
     password?: string;
     email?: string;
-    phone?: string;
+    phone?: string | null;
 }

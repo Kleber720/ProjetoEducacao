@@ -16,12 +16,12 @@ const pool:Pool=createPool({
 async function testarConexao() {
   try {
     const connection = await pool.getConnection();
-    console.log('Conexão com o banco de dados estabelecida com sucesso.');
+    console.log('Conection established successfully.');
     
     connection.release(); 
   } catch (err) {
-    console.error('Erro ao conectar ao banco de dados:', err);
-    throw new Error('Erro ao conectar ao banco de dados');
+    console.error('Error connecting to the database:', err);
+    throw new Error('Error connecting to the database ');
   }
 }
 
