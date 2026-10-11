@@ -217,3 +217,86 @@
         gap: 8px;
     }
 }
+
+.notebookPage .notebookActions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(202, 199, 226, 0.12);
+}
+
+.notebookPage :is(.notebookEdit, .notebookDelete){
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.notebookPage .notebookEdit{
+    color: #d7d1ff;
+    background: rgba(98, 81, 255, 0.16);
+    border-color: rgba(164, 151, 255, 0.35);
+}
+
+.notebookPage .notebookDelete{
+    color: #ffb4bc;
+    background: rgba(239, 83, 103, 0.1);
+    border-color: rgba(239, 83, 103, 0.3);
+}
+
+@media (hover: hover){
+    .notebookPage .notebookEdit:hover{
+        color: #fff;
+        background: #6251df;
+        border-color: #a497ff;
+        box-shadow: 0 4px 14px rgba(98, 81, 255, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .notebookPage .notebookDelete:not(:disabled):hover{
+        color: #fff;
+        background: #a72e43;
+        border-color: #ff8798;
+        box-shadow: 0 4px 14px rgba(167, 46, 67, 0.25);
+        transform: translateY(-2px);
+    }
+}
+
+.notebookPage :is(.notebookEdit, .notebookDelete:not(:disabled)):active{
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.notebookPage .notebookDelete:disabled{
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.notebookPage .notebookEdit:focus-visible{
+    outline: 2px solid #bcb4ff;
+    outline-offset: 4px;
+}
+
+.notebookPage .notebookDelete:focus-visible{
+    outline: 2px solid #ffb4bc;
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce){
+    .notebookPage :is(.notebookEdit, .notebookDelete){
+        transition: none;
+        transform: none;
+    }
+}

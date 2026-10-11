@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowLeft, FiBookOpen, FiChevronDown, FiRefreshCw } from 'react-icons/fi';
+import { FiArrowLeft, FiBookOpen, FiChevronDown, FiRefreshCw, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import SideBar from '../components/SideBar';
 import loginService from '../services/loginService';
 import pomodoroService from '../services/pomodoroService';
@@ -12,12 +12,14 @@ const NOTEBOOK_TYPES = [
         key: 'pomodoro',
         name: 'Pomodoro',
         search: pomodoroService.searchPomodoroByUserId,
+        remove: pomodoroService.deletePomodoro,
         fields: [['resume', 'Anotações']]
     },
     {
         key: 'cornell',
         name: 'Cornell',
         search: cornellService.searchCornellByUserId,
+        remove: cornellService.deleteCornell,
         fields: [['description', 'Perguntas e palavras-chave'], ['noteClass', 'Notas da aula'], ['resume', 'Resumo']]
     }
 ];
@@ -27,6 +29,24 @@ function PainelNotebook() {
     const [notebooks, setNotebooks] = useState({});
     const [loading, setLoading] = useState(Boolean(user?.id));
     const [reload, setReload] = useState(0);
+    const [deleting, setDeleting] = useState('');
+    const [actionError, setActionError] = useState('');
+
+    async function deleteNotebook(type, notebook) {
+        if (deleting || !window.confirm('Excluir o caderno "' + notebook.title + '"? Esta ação não pode ser desfeita.')) return;
+        setDeleting(type.key + ':' + notebook.id);
+        setActionError('');
+        try {
+            await type.remove(notebook.id, user.id);
+            setNotebooks(current => ({ ...current, [type.key]: {
+                ...current[type.key], items: current[type.key].items.filter(item => item.id !== notebook.id)
+            } }));
+        } catch (error) {
+            setActionError(error.message);
+        } finally {
+            setDeleting('');
+        }
+    }
 
     useEffect(() => {
         if (!user?.id) return;
@@ -68,10 +88,12 @@ function PainelNotebook() {
                         </div>
                     </div>
 
-                    {user?.id && <button className="notebookRefresh" type="button" disabled={loading} onClick={() => setReload(current => current + 1)}><FiRefreshCw aria-hidden="true" /> Atualizar</button>}
+                    {user?.id && <button className="notebookRefresh" type="button" disabled={loading || Boolean(deleting)} onClick={() => setReload(current => current + 1)}><FiRefreshCw aria-hidden="true" /> Atualizar</button>}
                 </header>
 
                 <p className="notebookIntroduction">Releia os cadernos que você salvou. Clique em um título para ver suas anotações.</p>
+
+                {actionError && <p className="notebookError" role="alert">{actionError}</p>}
 
                 {!user?.id ? (
                     <div className="notebookMessage">
@@ -112,6 +134,10 @@ function PainelNotebook() {
                                                                 <p className="notebookFieldText">{notebook[field] || 'Nenhuma anotação neste campo.'}</p>
                                                             </div>
                                                         ))}
+                                                        <div className="notebookActions">
+                                                            <Link className="notebookEdit" to={'/' + type.key + '?notebook=' + notebook.id}><FiEdit2 aria-hidden="true" /> Editar</Link>
+                                                            <button className="notebookDelete" type="button" disabled={Boolean(deleting)} onClick={() => deleteNotebook(type, notebook)}><FiTrash2 aria-hidden="true" /> {deleting === type.key + ':' + notebook.id ? 'Excluindo...' : 'Excluir'}</button>
+                                                        </div>
                                                     </div>
                                                 </details>
                                             ))}

@@ -14,10 +14,7 @@ pnpm-debug.log*
 # ==========================================
  
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
  
 # Mantém um exemplo do arquivo de configuração
 !.env.example

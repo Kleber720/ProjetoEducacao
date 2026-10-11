@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import NotebookChoice from '../components/NotebookChoice';
 import { FiArrowLeft, FiBookOpen, FiLink, FiYoutube, FiCheckCircle } from 'react-icons/fi';
 import { getYouTubeId } from '../services/getYoutube';
@@ -9,9 +9,11 @@ import './cornell.css';
 
 function Cornell() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const requestedNotebookId = Number(searchParams.get("notebook"));
     const [choosing, setChoosing] = useState(true);
     const [existingNotebooks, setExistingNotebooks] = useState([]);
-    const [isNewNotebook, setIsNewNotebook] = useState(true);
+    const [notebookId, setNotebookId] = useState(null);
     const [user] = useState(loginService.getUser);
     const [notebook, setNotebook] = useState({ title: '', description: '', noteClass: '', resume: '' });
     const [saved, setSaved] = useState(false);
@@ -32,6 +34,11 @@ function Cornell() {
                 if (controller.signal.aborted) return;
 
                 setExistingNotebooks(cornells);
+                if (requestedNotebookId) {
+                    const selected = cornells.find(item => item.id === requestedNotebookId);
+                    if (selected) selectNotebook(selected);
+                    else setSaveMessage('Caderno não encontrado.');
+                }
 
             } catch (error) {
                 if (!controller.signal.aborted) setSaveMessage(error.message);
@@ -43,13 +50,13 @@ function Cornell() {
 
         loadNotebook();
         return () => controller.abort();
-    }, [user?.id]);
+    }, [user?.id, requestedNotebookId]);
 
     function createNotebook() {
         setNotebook({ title: '', description: '', noteClass: '', resume: '' });
         setSaved(false);
         setSaveMessage('');
-        setIsNewNotebook(true);
+        setNotebookId(null);
         setChoosing(false);
     }
 
@@ -57,7 +64,7 @@ function Cornell() {
         setNotebook({ title: selected.title, description: selected.description, noteClass: selected.noteClass, resume: selected.resume });
         setSaved(true);
         setSaveMessage('Salvo no banco de dados');
-        setIsNewNotebook(false);
+        setNotebookId(selected.id);
         setChoosing(false);
     }
 
@@ -73,11 +80,17 @@ function Cornell() {
         setSaveMessage('Salvando...');
 
         try {
-            const cornell = await cornellService.createCornell(user.id, notebook.title, notebook.description, notebook.resume, notebook.noteClass);
+            const cornell = notebookId
+                ? await cornellService.updateCornell(notebookId, user.id, notebook)
+                : await cornellService.createCornell(user.id, notebook.title, notebook.description, notebook.resume, notebook.noteClass);
             setNotebook({ title: cornell.title, description: cornell.description, noteClass: cornell.noteClass, resume: cornell.resume });
             setSaved(true);
             setSaveMessage('Salvo no banco de dados');
-            if (isNewNotebook) navigate('/cadernos');
+            setNotebookId(cornell.id);
+            setExistingNotebooks(current => notebookId
+                ? current.map(item => item.id === notebookId ? cornell : item)
+                : [cornell, ...current]);
+            if (!notebookId) navigate('/cadernos');
 
         } catch (error) {
             setSaveMessage(error.message);
@@ -169,7 +182,7 @@ function Cornell() {
                     </div>
 
                     <button className="cornellPrimaryButton cornellSaveButton" type="button" disabled={!user?.id || loading || saving || saved || !notebook.title.trim()} onClick={saveNotebook}>
-                        {saving ? 'Salvando...' : 'Salvar caderno'}
+                        {saving ? 'Salvando...' : notebookId ? 'Atualizar caderno' : 'Salvar caderno'}
                     </button>
 
                     {!user?.id && <Link className="cornellYoutubeLink" to="/login">Entrar na sua conta</Link>}

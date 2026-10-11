@@ -11,4 +11,12 @@ async function searchPomodoroByUserId(userId, signal) {
     return api("api/pomodoro/user/" + userId, { signal });
 }
 
-export default { createPomodoro, searchPomodoroByUserId };
+async function updatePomodoro(id, userId, data) {
+    return api("api/pomodoro/" + id, { method: "PUT", body: JSON.stringify({ ...data, userId }) });
+}
+
+async function deletePomodoro(id, userId) {
+    return api("api/pomodoro/" + id + "?userId=" + userId, { method: "DELETE" });
+}
+
+export default { createPomodoro, searchPomodoroByUserId, updatePomodoro, deletePomodoro };

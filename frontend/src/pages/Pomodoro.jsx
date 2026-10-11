@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import NotebookChoice from '../components/NotebookChoice';
 import { FiArrowLeft, FiBookOpen, FiLink, FiPlay, FiPause, FiRotateCcw, FiSkipForward, FiYoutube } from 'react-icons/fi';
 import { POMODORO_MODES,  remainingSeconds, nextSession } from '../services/pomodoro';
@@ -10,9 +10,11 @@ import './Pomodoro.css';
 
 function Pomodoro() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const requestedNotebookId = Number(searchParams.get("notebook"));
     const [choosing, setChoosing] = useState(true);
     const [existingNotebooks, setExistingNotebooks] = useState([]);
-    const [isNewNotebook, setIsNewNotebook] = useState(true);
+    const [notebookId, setNotebookId] = useState(null);
     const [user] = useState(loginService.getUser);
     const [notebook, setNotebook] = useState({ title: '', notes: '' });
     const [saved, setSaved] = useState(false);
@@ -35,6 +37,11 @@ function Pomodoro() {
                 if (controller.signal.aborted) return;
 
                 setExistingNotebooks(pomodoros);
+                if (requestedNotebookId) {
+                    const selected = pomodoros.find(item => item.id === requestedNotebookId);
+                    if (selected) selectNotebook(selected);
+                    else setSaveMessage('Caderno não encontrado.');
+                }
 
             } catch (error) {
                 if (!controller.signal.aborted) setSaveMessage(error.message);
@@ -46,13 +53,13 @@ function Pomodoro() {
 
         loadNotebook();
         return () => controller.abort();
-    }, [user?.id]);
+    }, [user?.id, requestedNotebookId]);
 
     function createNotebook() {
         setNotebook({ title: '', notes: '' });
         setSaved(false);
         setSaveMessage('');
-        setIsNewNotebook(true);
+        setNotebookId(null);
         setChoosing(false);
     }
 
@@ -60,7 +67,7 @@ function Pomodoro() {
         setNotebook({ title: selected.title, notes: selected.resume });
         setSaved(true);
         setSaveMessage('Salvo no banco de dados');
-        setIsNewNotebook(false);
+        setNotebookId(selected.id);
         setChoosing(false);
     }
 
@@ -76,11 +83,17 @@ function Pomodoro() {
         setSaveMessage('Salvando...');
 
         try {
-            const pomodoro = await pomodoroService.createPomodoro(user.id, notebook.title, notebook.notes);
+            const pomodoro = notebookId
+                ? await pomodoroService.updatePomodoro(notebookId, user.id, { title: notebook.title, resume: notebook.notes })
+                : await pomodoroService.createPomodoro(user.id, notebook.title, notebook.notes);
             setNotebook({ title: pomodoro.title, notes: pomodoro.resume });
             setSaved(true);
             setSaveMessage('Salvo no banco de dados');
-            if (isNewNotebook) navigate('/cadernos');
+            setNotebookId(pomodoro.id);
+            setExistingNotebooks(current => notebookId
+                ? current.map(item => item.id === notebookId ? pomodoro : item)
+                : [pomodoro, ...current]);
+            if (!notebookId) navigate('/cadernos');
 
         } catch (error) {
             setSaveMessage(error.message);
@@ -204,7 +217,7 @@ function Pomodoro() {
                     </div>
 
                     <button className="pomodoroPrimaryButton pomodoroSaveButton" type="button" disabled={!user?.id || loading || saving || saved || !notebook.title.trim()} onClick={saveNotebook}>
-                        {saving ? 'Salvando...' : 'Salvar caderno'}
+                        {saving ? 'Salvando...' : notebookId ? 'Atualizar caderno' : 'Salvar caderno'}
                     </button>
 
                     {!user?.id && <Link className="pomodoroYoutubeLink" to="/login">Entrar na sua conta</Link>}

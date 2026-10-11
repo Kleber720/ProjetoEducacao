@@ -29,6 +29,23 @@ class CornellController {
             respondError(res, error);
         }
     }
+
+    async updateCornellById(req: Request, res: Response): Promise<void> {
+        try {
+            res.status(200).json(await cornellServices.updateCornellById(Number(req.params.id), req.body));
+        } catch (error) {
+            respondError(res, error);
+        }
+    }
+
+    async deleteCornellById(req: Request, res: Response): Promise<void> {
+        try {
+            await cornellServices.deleteCornellById(Number(req.params.id), Number(req.query.userId));
+            res.status(200).json({ message: "Caderno excluído com sucesso." });
+        } catch (error) {
+            respondError(res, error);
+        }
+    }
 }
 
 const cornellController = new CornellController();

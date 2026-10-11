@@ -23,6 +23,29 @@ class PomodoroInfrastructure implements PomodoroRepository {
 
         return pomodoros;
     }
+
+    async searchPomodoroById(id: number, userId: number): Promise<createPomodoroDTO | null> {
+        const [rows] = await pool.query<(RowDataPacket & createPomodoroDTO)[]>(
+            "SELECT id, userId, title, resume FROM pomodoro WHERE id = ? AND userId = ?",
+            [id, userId]
+        );
+        return rows[0] ?? null;
+    }
+
+    async updatePomodoroById(id: number, notebook: Pomodoro): Promise<boolean> {
+        const [result] = await pool.query<ResultSetHeader>(
+            "UPDATE pomodoro SET title = ?, resume = ? WHERE id = ? AND userId = ?",
+            [notebook.getTitle(), notebook.getResume(), id, notebook.getUserId()]
+        );
+        return result.affectedRows > 0;
+    }
+
+    async deletePomodoroById(id: number, userId: number): Promise<boolean> {
+        const [result] = await pool.query<ResultSetHeader>(
+            "DELETE FROM pomodoro WHERE id = ? AND userId = ?", [id, userId]
+        );
+        return result.affectedRows > 0;
+    }
 }
 
 const pomodoroInfrastructure = new PomodoroInfrastructure();

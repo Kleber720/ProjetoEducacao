@@ -23,6 +23,29 @@ class CornellInfrastructure implements CornellRepository {
 
         return cornells;
     }
+
+    async searchCornellById(id: number, userId: number): Promise<createCornellDTO | null> {
+        const [rows] = await pool.query<(RowDataPacket & createCornellDTO)[]>(
+            "SELECT id, userId, title, description, resume, noteClass FROM cornell WHERE id = ? AND userId = ?",
+            [id, userId]
+        );
+        return rows[0] ?? null;
+    }
+
+    async updateCornellById(id: number, notebook: Cornell): Promise<boolean> {
+        const [result] = await pool.query<ResultSetHeader>(
+            "UPDATE cornell SET title = ?, description = ?, resume = ?, noteClass = ? WHERE id = ? AND userId = ?",
+            [notebook.getTitle(), notebook.getDescription(), notebook.getResume(), notebook.getNoteClass(), id, notebook.getUserId()]
+        );
+        return result.affectedRows > 0;
+    }
+
+    async deleteCornellById(id: number, userId: number): Promise<boolean> {
+        const [result] = await pool.query<ResultSetHeader>(
+            "DELETE FROM cornell WHERE id = ? AND userId = ?", [id, userId]
+        );
+        return result.affectedRows > 0;
+    }
 }
 
 const cornellInfrastructure = new CornellInfrastructure();

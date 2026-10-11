@@ -26,15 +26,7 @@ class CornellServices {
     }
 
     async createCornell(cornellDTO: createCornellDTO): Promise<createCornellDTO> {
-        if (!cornellDTO || typeof cornellDTO.title !== "string" || !cornellDTO.title.trim() || cornellDTO.title.trim().length > 255) {
-            throw new CornellError("Informe um título de até 255 caracteres.", 400);
-        }
-
-        for (const field of ["description", "resume", "noteClass"] as const) {
-            if (typeof cornellDTO[field] !== "string" || Buffer.byteLength(cornellDTO[field], "utf8") > 65535) {
-                throw new CornellError("Perguntas, notas ou resumo inválidos ou muito longos.", 400);
-            }
-        }
+        this.validateNotebook(cornellDTO);
 
         await this.verifyUser(cornellDTO.userId);
 
@@ -60,6 +52,47 @@ class CornellServices {
     async searchCornellByUserId(userId: number): Promise<createCornellDTO[]> {
         await this.verifyUser(userId);
         return cornellInfrastructure.searchCornellByUserId(userId);
+    }
+
+    private validateNotebook(cornellDTO: createCornellDTO): void {
+        if (!cornellDTO || typeof cornellDTO.title !== "string" || !cornellDTO.title.trim() || cornellDTO.title.trim().length > 255) {
+            throw new CornellError("Informe um título de até 255 caracteres.", 400);
+        }
+
+        for (const field of ["description", "resume", "noteClass"] as const) {
+            if (typeof cornellDTO[field] !== "string" || Buffer.byteLength(cornellDTO[field], "utf8") > 65535) {
+                throw new CornellError("Perguntas, notas ou resumo inválidos ou muito longos.", 400);
+            }
+        }
+
+    }
+
+    private verifyNotebookId(id: number): void {
+        if (!Number.isSafeInteger(id) || id <= 0) {
+            throw new CornellError("ID de caderno inválido.", 400);
+        }
+    }
+
+    async updateCornellById(id: number, data: createCornellDTO): Promise<createCornellDTO> {
+        this.verifyNotebookId(id);
+        this.validateNotebook(data);
+        await this.verifyUser(data.userId);
+        const existing = await cornellInfrastructure.searchCornellById(id, data.userId);
+        if (!existing) throw new CornellError("Caderno não encontrado.", 404);
+        const notebook = new Cornell(data.userId, data.title.trim(), data.description, data.resume, data.noteClass);
+        const updated = await cornellInfrastructure.updateCornellById(id, notebook);
+        if (!updated && !await cornellInfrastructure.searchCornellById(id, data.userId)) {
+            throw new CornellError("Caderno não encontrado.", 404);
+        }
+        return { id, userId: data.userId, title: notebook.getTitle(), description: notebook.getDescription(), resume: notebook.getResume(), noteClass: notebook.getNoteClass() };
+    }
+
+    async deleteCornellById(id: number, userId: number): Promise<void> {
+        this.verifyNotebookId(id);
+        await this.verifyUser(userId);
+        if (!await cornellInfrastructure.deleteCornellById(id, userId)) {
+            throw new CornellError("Caderno não encontrado.", 404);
+        }
     }
 }
 

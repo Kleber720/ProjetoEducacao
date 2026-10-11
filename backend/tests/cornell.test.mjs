@@ -22,6 +22,17 @@ globalThis.cornellTestPool = {
             return [{ insertId: id }];
         }
 
+        if (sql.includes('WHERE id = ? AND userId = ?')) {
+            if (sql.startsWith('SELECT')) return [records.filter(record => record.id === values[0] && record.userId === values[1])];
+            const offset = sql.startsWith('UPDATE') ? 4 : 0;
+            const index = records.findIndex(record => record.id === values[offset] && record.userId === values[offset + 1]);
+            if (index < 0) return [{ affectedRows: 0 }];
+            if (sql.startsWith('UPDATE') && ["title","description","resume","noteClass"].every((field, position) => records[index][field] === values[position])) return [{ affectedRows: 0 }];
+            if (sql.startsWith('DELETE')) records.splice(index, 1);
+            else Object.assign(records[index], { title: values[0], description: values[1], resume: values[2], noteClass: values[3] });
+            return [{ affectedRows: 1 }];
+        }
+
         return [records.filter(record => record.userId === values[0]).toReversed()];
     }
 };
@@ -155,6 +166,11 @@ test('serviços frontend guardam o usuário e enviam as anotações à API', asy
         assert.equal(notebook.noteClass, 'Notas da aula');
         const notebooks = await cornellService.searchCornellByUserId(1);
         assert.equal(notebooks[0].id, notebook.id);
+        const edited = await cornellService.updateCornell(notebook.id, 1, { ...notebook, title: 'Frontend editado' });
+        assert.equal(edited.id, notebook.id);
+        assert.equal(edited.title, 'Frontend editado');
+        await cornellService.deleteCornell(notebook.id, 1);
+        assert.ok(!(await cornellService.searchCornellByUserId(1)).some(item => item.id === notebook.id));
         loginService.logout();
         assert.equal(loginService.getUser(), null);
     } finally {
@@ -178,4 +194,51 @@ test('valida os três campos do caderno e mantém cada conteúdo separado', asyn
     assert.deepEqual(saved, { id: saved.id, ...body });
     const notebooks = await (await fetch(baseUrl + '/api/cornell/user/1')).json();
     assert.deepEqual(notebooks[0], saved);
+});
+
+async function modify(id, body, method = 'PUT') {
+    return fetch(baseUrl + '/api/cornell/' + id + (method === 'DELETE' ? '?userId=' + body.userId : ''), {
+        method, headers: { 'Content-Type': 'application/json' },
+        ...(method === 'PUT' ? { body: JSON.stringify(body) } : {})
+    });
+}
+
+test('atualiza sem duplicar, mantém os campos e permite salvar sem mudanças', async () => {
+    const body = { userId: 1, title: 'Original', resume: 'Notas', description: 'Perguntas', noteClass: 'Aula' };
+    const created = await (await create(body)).json();
+    const count = records.length;
+    const updated = { ...body, title: '  Editado  ', resume: '' };
+    const response = await modify(created.id, updated);
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), { ...updated, title: 'Editado', id: created.id });
+    assert.equal(records.length, count);
+    assert.equal((await modify(created.id, updated)).status, 200);
+    assert.equal((await modify(created.id, { ...updated, title: ' ' })).status, 400);
+    assert.equal(records.find(record => record.id === created.id).title, 'Editado');
+});
+
+test('atualização e exclusão validam IDs e não alteram cadernos de outro usuário', async () => {
+    const body = { userId: 1, title: 'Privado', resume: '', description: '', noteClass: '' };
+    const created = await (await create(body)).json();
+    assert.equal((await modify(created.id, { ...body, userId: 2 })).status, 404);
+    assert.equal((await modify(created.id, { userId: 2 }, 'DELETE')).status, 404);
+    assert.equal((await modify('abc', body)).status, 400);
+    assert.equal((await modify(0, body, 'DELETE')).status, 400);
+    assert.equal((await modify(created.id, { userId: 0 }, 'DELETE')).status, 400);
+    assert.equal((await modify(99999, body)).status, 404);
+    assert.equal((await modify(created.id, { userId: 1 }, 'DELETE')).status, 200);
+    assert.ok(!records.some(record => record.id === created.id));
+    assert.equal((await modify(created.id, body)).status, 404);
+    assert.equal((await modify(created.id, { userId: 1 }, 'DELETE')).status, 404);
+});
+
+test('update e delete retornam falhas do banco sem detalhes internos', async () => {
+    failDatabase = true;
+    try {
+        for (const method of ['PUT', 'DELETE']) {
+            const response = await modify(1, { userId: 1, title: 'Teste', resume: '', description: '', noteClass: '' }, method);
+            assert.equal(response.status, 500);
+            assert.deepEqual(await response.json(), { message: 'Erro ao acessar o caderno Cornell.' });
+        }
+    } finally { failDatabase = false; }
 });
