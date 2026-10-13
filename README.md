@@ -1,3 +1,23 @@
+<div align="center">
+
+# Projeto Educação
+
+**Uma plataforma para estudar com foco e organizar o conhecimento.**
+
+![React](https://img.shields.io/badge/React-087EA4?style=flat-square&logo=react&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-B99000?style=flat-square&logo=javascript&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![Express](https://img.shields.io/badge/Express-45556C?style=flat-square&logo=express&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+
+</div>
+
+## Visão rápida
+
+Aplicação com espaços de estudo **Pomodoro e Cornell**, cadernos com criação, edição e exclusão, incorporação de vídeos do YouTube e cadastro de usuários.
+
+O frontend usa React e Vite; a API usa Node.js, TypeScript e Express, com persistência em MySQL. O projeto pratica integração de APIs, validação de dados e separação em camadas.
+
+A documentação técnica abaixo mantém as instruções de instalação, endpoints, testes e limitações atuais.
+
+---
+
 # EduKation
 
 A full-stack study application for focused sessions, structured notes, and video lessons.
@@ -474,3 +494,8 @@ Use Node.js 24. The test harness depends on native module hooks and TypeScript s
 Created by **Kléber Amaro**.
 
 This project is licensed under the [MIT License](LICENSE).
+
+
+---
+
+[← Portfólio de Kleber Amaro](https://github.com/Kleber720) · [Todos os repositórios](https://github.com/Kleber720?tab=repositories)
