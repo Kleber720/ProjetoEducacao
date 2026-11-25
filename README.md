@@ -6,6 +6,10 @@ EduKation combines the Pomodoro technique and the Cornell note-taking method wit
 
 The application uses a React frontend, a TypeScript REST API built with Express, and MySQL persistence. The interface is in Brazilian Portuguese; this documentation is in English.
 
+<p align="center">
+  <img src="educacao-preview.png" width="100%" alt="Preview of EduKation Interface" />
+</p>
+
 ## Contents
 
 - [Features](#features)
